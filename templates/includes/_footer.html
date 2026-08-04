@@ -1,12 +1,42 @@
 {% load static %}
 <footer id="footer">
   <div class="container">
-    <div class="footer-grid">
+    <div class="footer-grid" style="grid-template-columns: 2fr repeat(2, 1fr);">
       
       <div class="footer-brand">
         <a href="{% url 'home:index' %}" class="logo">
-          <div class="logo-icon"><i class="fa-solid fa-shoe-prints"></i></div>
-          <div class="logo-text">Edu<span>Pulse</span></div>
+          <div class="logo-icon">
+            <svg viewBox="0 0 100 100" width="36" height="36" style="display: block;">
+              <defs>
+                <linearGradient id="footerLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#00f0ff" />
+                  <stop offset="100%" stop-color="#8b5cf6" />
+                </linearGradient>
+                <filter id="footerLogoGlow">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <path d="M 50 12 L 80 25 L 80 55 C 80 75, 50 88, 50 88 C 50 88, 20 75, 20 55 L 20 25 Z" fill="none" stroke="url(#footerLogoGrad)" stroke-width="4.5" stroke-linejoin="round" filter="url(#footerLogoGlow)" />
+              <circle cx="50" cy="32" r="4" fill="#00f0ff" />
+              <circle cx="38" cy="50" r="4" fill="#8b5cf6" />
+              <circle cx="62" cy="50" r="4" fill="#8b5cf6" />
+              <circle cx="50" cy="68" r="5" fill="#00f0ff" filter="url(#footerLogoGlow)" />
+              <line x1="50" y1="32" x2="38" y2="50" stroke="#00f0ff" stroke-width="2" opacity="0.8" />
+              <line x1="50" y1="32" x2="62" y2="50" stroke="#00f0ff" stroke-width="2" opacity="0.8" />
+              <line x1="38" y1="50" x2="50" y2="68" stroke="#8b5cf6" stroke-width="2" opacity="0.8" />
+              <line x1="62" y1="50" x2="50" y2="68" stroke="#8b5cf6" stroke-width="2" opacity="0.8" />
+              <path d="M 50 43 C 46 43, 44 47, 44 51 C 44 57, 50 61, 50 61 C 50 61, 56 57, 56 51 C 56 47, 54 43, 50 43 Z" fill="url(#footerLogoGrad)" opacity="0.9" />
+              <circle cx="45" cy="39" r="1.8" fill="#00f0ff" />
+              <circle cx="48.5" cy="38" r="1.8" fill="#00f0ff" />
+              <circle cx="52" cy="38" r="1.8" fill="#00f0ff" />
+              <circle cx="55.5" cy="39" r="1.8" fill="#00f0ff" />
+            </svg>
+          </div>
+          <div class="logo-text">Footprint<span>Quest</span></div>
         </a>
         <div class="social-links">
           <a href="#" class="social-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
@@ -19,25 +49,15 @@
       <div>
         <h4 class="footer-title">Navigation</h4>
         <ul class="footer-links">
-          <li><a href="{% url 'home:index' %}">Home</a></li>
+          <li><a href="{% url 'home:index' %}">About Footprint Quest</a></li>
           <li><a href="{% url 'digitalfootprints:index' %}">Digital Footprints</a></li>
           <li><a href="{% url 'journey:index' %}">Learning Journey</a></li>
-          <li><a href="{% url 'quiz:index' %}">Privacy Quizzes</a></li>
+          <li><a href="{% url 'contact:index' %}">Contact</a></li>
         </ul>
       </div>
 
       <div>
-        <h4 class="footer-title">Resources</h4>
-        <ul class="footer-links">
-          <li><a href="{% url 'leaderboard:index' %}">Leaderboard</a></li>
-          <li><a href="{% url 'statistics:index' %}">Statistics</a></li>
-          <li><a href="{% url 'blog:index' %}">Blog & Articles</a></li>
-          <li><a href="{% url 'contact:faq' %}">FAQ & Support</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4 class="footer-title">Legal</h4>
+        <h4 class="footer-title">Legal & Security</h4>
         <ul class="footer-links">
           <li><a href="#">Privacy Policy</a></li>
           <li><a href="#">Terms of Service</a></li>
@@ -46,20 +66,11 @@
         </ul>
       </div>
 
-      <div>
-        <h4 class="footer-title">Newsletter</h4>
-        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">Get weekly privacy tips & course updates.</p>
-        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed to EduPulse updates!');">
-          <input type="email" placeholder="Enter your email" class="newsletter-input" required>
-          <button type="submit" class="btn btn-primary" style="padding: 0.65rem 1rem;">Subscribe</button>
-        </form>
-      </div>
-
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; {{ CURRENT_YEAR }} {{ SITE_NAME }} Inc. All rights reserved. Built with Django Architecture.</p>
-      <p>Awwwards Quality Multi-App Design System</p>
+      <p>&copy; {{ CURRENT_YEAR }} Footprint Quest. All rights reserved.</p>
+      <p>Polished Educational Game Experience</p>
     </div>
   </div>
 </footer>

@@ -8,6 +8,6 @@ class HomePageTests(TestCase):
         response = self.client.get(reverse("home:index"))
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "EduPulse")
+        self.assertContains(response, "Footprint Quest")
 
 # Create your tests here.

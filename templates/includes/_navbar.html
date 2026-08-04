@@ -3,20 +3,49 @@
   <div class="container nav-container">
     <a href="{% url 'home:index' %}" class="logo">
       <div class="logo-icon">
-        <i class="fa-solid fa-shoe-prints"></i>
+        <svg viewBox="0 0 100 100" width="36" height="36" style="display: block;">
+          <defs>
+            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#00f0ff" />
+              <stop offset="100%" stop-color="#8b5cf6" />
+            </linearGradient>
+            <filter id="logoGlow">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          <path d="M 50 12 L 80 25 L 80 55 C 80 75, 50 88, 50 88 C 50 88, 20 75, 20 55 L 20 25 Z" fill="none" stroke="url(#logoGrad)" stroke-width="4.5" stroke-linejoin="round" filter="url(#logoGlow)" />
+          <circle cx="50" cy="32" r="4" fill="#00f0ff" />
+          <circle cx="38" cy="50" r="4" fill="#8b5cf6" />
+          <circle cx="62" cy="50" r="4" fill="#8b5cf6" />
+          <circle cx="50" cy="68" r="5" fill="#00f0ff" filter="url(#logoGlow)" />
+          <line x1="50" y1="32" x2="38" y2="50" stroke="#00f0ff" stroke-width="2" opacity="0.8" />
+          <line x1="50" y1="32" x2="62" y2="50" stroke="#00f0ff" stroke-width="2" opacity="0.8" />
+          <line x1="38" y1="50" x2="50" y2="68" stroke="#8b5cf6" stroke-width="2" opacity="0.8" />
+          <line x1="62" y1="50" x2="50" y2="68" stroke="#8b5cf6" stroke-width="2" opacity="0.8" />
+          <path d="M 50 43 C 46 43, 44 47, 44 51 C 44 57, 50 61, 50 61 C 50 61, 56 57, 56 51 C 56 47, 54 43, 50 43 Z" fill="url(#logoGrad)" opacity="0.9" />
+          <circle cx="45" cy="39" r="1.8" fill="#00f0ff" />
+          <circle cx="48.5" cy="38" r="1.8" fill="#00f0ff" />
+          <circle cx="52" cy="38" r="1.8" fill="#00f0ff" />
+          <circle cx="55.5" cy="39" r="1.8" fill="#00f0ff" />
+        </svg>
       </div>
-      <div class="logo-text">Edu<span>Pulse</span></div>
+      <div class="logo-text">Footprint<span>Quest</span></div>
     </a>
 
+    <!-- Strictly 4 Main Navigation Items -->
     <ul class="nav-links">
       <li><a href="{% url 'home:index' %}" class="nav-link active">Home</a></li>
       <li><a href="{% url 'digitalfootprints:index' %}" class="nav-link">Digital Footprints</a></li>
       <li><a href="{% url 'journey:index' %}" class="nav-link">Learning Journey</a></li>
-      <li><a href="{% url 'quiz:index' %}" class="nav-link">Quizzes</a></li>
-      <li><a href="{% url 'leaderboard:index' %}" class="nav-link">Leaderboard</a></li>
-      <li><a href="{% url 'statistics:index' %}" class="nav-link">Statistics</a></li>
-      <li><a href="{% url 'blog:index' %}" class="nav-link">Blog</a></li>
-      <li><a href="{% url 'contact:index' %}" class="nav-link">Contact</a></li>
+      {% if user.is_authenticated %}
+        <li><a href="{% url 'dashboard:index' %}" class="nav-link">Dashboard</a></li>
+      {% else %}
+        <li><a href="#" class="nav-link open-register">Create Account / Login</a></li>
+      {% endif %}
     </ul>
 
     <div class="nav-actions">
@@ -25,8 +54,7 @@
       </button>
 
       {% if user.is_authenticated %}
-        <a href="{% url 'dashboard:index' %}" class="btn btn-secondary">Dashboard</a>
-        <a href="{% url 'accounts:logout' %}" class="btn btn-primary">Logout</a>
+        <a href="{% url 'accounts:logout' %}" class="btn btn-secondary" style="padding: 0.5rem 1.2rem;">Logout</a>
       {% else %}
         <button class="btn btn-secondary open-login">Login</button>
         <button class="btn btn-primary open-register">Create Account</button>

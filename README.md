@@ -1,6 +1,6 @@
-# EduPulse - Modular Futuristic Django Architecture
+# Footprint Quest - Modular Futuristic Django Architecture
 
-Welcome to **EduPulse**, a modern, multi-app Django application centered around **Space + Digital Future + Education + Digital Footprint**.
+Welcome to **Footprint Quest**, a modern, multi-app Django application centered around **Space + Digital Future + Education + Digital Footprint**.
 
 This codebase is designed specifically for **beginner and intermediate Django developers** to learn clean, modular, production-ready Django project architecture.
 

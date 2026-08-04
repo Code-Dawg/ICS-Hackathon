@@ -4,7 +4,7 @@
   <div class="modal-card">
     <button class="modal-close" aria-label="Close Modal"><i class="fa-solid fa-xmark"></i></button>
     <h2 class="modal-title">Welcome <span class="gradient-text">Back</span></h2>
-    <p class="modal-subtitle">Log in to your EduPulse dashboard</p>
+    <p class="modal-subtitle">Log in to your Footprint Quest account</p>
 
     <form action="{% url 'accounts:login' %}" method="post">
       {% csrf_token %}
@@ -35,9 +35,10 @@
       <button class="social-auth-btn"><i class="fa-brands fa-github"></i> GitHub</button>
     </div>
 
-    <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
-      Don't have an account? <a href="#" class="modal-switch" data-target="register">Create Account</a>
-    </p>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+      <span>Don't have an account? <a href="#" class="modal-switch" data-target="register">Create Account</a></span>
+      <a href="{% url 'contact:index' %}" class="modal-switch-link">Contact Support</a>
+    </div>
   </div>
 </div>
 
@@ -45,8 +46,8 @@
 <div id="register-modal" class="modal-overlay">
   <div class="modal-card">
     <button class="modal-close" aria-label="Close Modal"><i class="fa-solid fa-xmark"></i></button>
-    <h2 class="modal-title">Join <span class="gradient-text">EduPulse</span></h2>
-    <p class="modal-subtitle">Start your digital footprint learning journey</p>
+    <h2 class="modal-title">Join <span class="gradient-text">Footprint Quest</span></h2>
+    <p class="modal-subtitle">Start Level 1 of your digital footprint learning quest</p>
 
     <form action="{% url 'accounts:register' %}" method="post">
       {% csrf_token %}
@@ -76,11 +77,12 @@
         </label>
       </div>
 
-      <button type="submit" class="btn btn-glow" style="width: 100%; padding: 0.9rem;">Create Free Account</button>
+      <button type="submit" class="btn btn-glow" style="width: 100%; padding: 0.9rem;">Complete Level 1 – Create Account</button>
     </form>
 
-    <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
-      Already have an account? <a href="#" class="modal-switch" data-target="login">Log In</a>
-    </p>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+      <span>Already have an account? <a href="#" class="modal-switch" data-target="login">Log In</a></span>
+      <a href="{% url 'contact:index' %}" class="modal-switch-link">Contact Support</a>
+    </div>
   </div>
 </div>

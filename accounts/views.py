@@ -23,7 +23,7 @@ def register_view(request):
             user.save()
             Profile.objects.create(user=user)
             login(request, user)
-            messages.success(request, f"Welcome to EduPulse, {user.username}!")
+            messages.success(request, f"Welcome to Footprint Quest, {user.username}!")
             return redirect('dashboard:index')
         else:
             messages.error(request, "Please correct errors in the registration form.")
