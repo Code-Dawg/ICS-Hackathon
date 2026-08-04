@@ -18,19 +18,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-# Application definition
 INSTALLED_APPS = [
-    # Default Django Apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'accounts.apps.AccountsConfig',
     'home.apps.HomeConfig',
-<<<<<<< HEAD
-    'login.apps.LoginConfig',
-=======
     'digitalfootprints.apps.DigitalfootprintsConfig',
     'journey.apps.JourneyConfig',
     'quiz.apps.QuizConfig',
@@ -39,7 +36,6 @@ INSTALLED_APPS = [
     'stats_app.apps.StatsAppConfig',
     'blog.apps.BlogConfig',
     'contact.apps.ContactConfig',
->>>>>>> bc3b42e14bd05e092dc75e8019d6fe17608064bf
 ]
 
 MIDDLEWARE = [
@@ -104,8 +100,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Auth redirects
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'dashboard:index'
+LOGOUT_REDIRECT_URL = 'home:index'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
