@@ -85,6 +85,25 @@ class JourneyTests(TestCase):
         self.assertEqual(self.profile.stars, 3)
         self.assertEqual(self.profile.privacy_score, 95) # 85 + 10
 
+    def test_wrong_answers_apply_negative_marking(self):
+        self.client.login(username='teststudent', password='testpassword123')
+        response = self.client.post(
+            reverse('journey:submit_completion'),
+            data=json.dumps({
+                'level': 2,
+                'xp': 100,
+                'coins': 20,
+                'correct_count': 3,
+                'wrong_count': 2,
+            }),
+            content_type='application/json'
+        )
+
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEqual(data['xp_earned'], 80)
+        self.assertEqual(data['negative_marks'], 20)
+
     def test_submit_out_of_order_level_allowed(self):
         self.client.login(username='teststudent', password='testpassword123')
         

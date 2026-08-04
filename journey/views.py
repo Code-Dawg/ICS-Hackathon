@@ -230,11 +230,16 @@ def submit_level_completion_view(request):
     try:
         data = json.loads(request.body)
         level = int(data.get('level'))
-        xp_earned = int(data.get('xp', 50))
+        requested_xp = int(data.get('xp', 50))
         coins_earned = int(data.get('coins', 10))
         stars_earned = int(data.get('stars', 1))
-        correct_count = int(data.get('correct_count', 0))
-        wrong_count = int(data.get('wrong_count', 0))
+        correct_count = max(0, int(data.get('correct_count', 0)))
+        wrong_count = max(0, int(data.get('wrong_count', 0)))
+
+        # Negative marking: an incorrect answer costs 10 XP from this level's
+        # reward. A level cannot reduce a learner's previously earned XP.
+        negative_marks = wrong_count * 10
+        xp_earned = max(0, requested_xp - negative_marks)
         
         # Adjustments to metrics
         privacy_diff = int(data.get('privacy_diff', 0))
@@ -293,8 +298,13 @@ def submit_level_completion_view(request):
             
             return JsonResponse({
                 'status': 'success',
-                'message': f'Level {level} completed!',
+                'message': (
+                    f'Level {level} completed! {xp_earned} XP earned'
+                    + (f' after {negative_marks} XP negative marking.' if negative_marks else '.')
+                ),
                 'xp': profile.xp,
+                'xp_earned': xp_earned,
+                'negative_marks': negative_marks,
                 'coins': profile.coins,
                 'stars': profile.stars,
                 'current_level': profile.current_level,
