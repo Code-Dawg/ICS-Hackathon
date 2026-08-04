@@ -1,0 +1,440 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sovereignty Final Report | Footprint Quest{% endblock %}
+
+{% block extra_css %}
+<style>
+  .report-section {
+    background: radial-gradient(circle at 50% 20%, rgba(15, 23, 42, 0.95) 0%, #030712 100%);
+    min-height: 100vh;
+    padding-top: 8rem;
+    padding-bottom: 6rem;
+  }
+
+  .report-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .report-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 2.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  @media (max-width: 992px) {
+    .report-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Score Ring Panel */
+  .score-cards-panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .score-card {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    border-radius: var(--border-radius-lg);
+    padding: 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+
+  .score-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-cyan);
+  }
+
+  .circular-progress {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    margin-bottom: 1rem;
+  }
+
+  .circular-progress svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+
+  .circular-progress circle {
+    fill: none;
+    stroke-width: 8;
+  }
+
+  .circular-progress .bg-ring {
+    stroke: rgba(255, 255, 255, 0.05);
+  }
+
+  .circular-progress .fill-ring {
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s ease-in-out;
+  }
+
+  .circular-progress .grade-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #fff;
+  }
+
+  .score-label {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #fff;
+    margin-bottom: 0.25rem;
+  }
+
+  .score-value {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  /* Badge Listing Cards */
+  .badge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .badge-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-md);
+    padding: 1.25rem 0.75rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .badge-card:hover {
+    background: rgba(139, 92, 246, 0.05);
+    border-color: var(--primary-purple);
+  }
+
+  .badge-icon-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(6, 182, 212, 0.15) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: var(--primary-purple);
+    margin: 0 auto 0.75rem auto;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
+  }
+
+  .badge-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+  }
+
+  /* Recommendations Checklist */
+  .rec-card {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(3, 7, 18, 0.8) 100%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+  }
+
+  .rec-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    padding-bottom: 1rem;
+  }
+
+  .rec-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .rec-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-top: 0.3rem;
+    flex-shrink: 0;
+  }
+
+  .rec-info h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.25rem;
+  }
+
+  .rec-info p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* Timeline */
+  .timeline-list {
+    position: relative;
+    border-left: 2px solid rgba(255,255,255,0.06);
+    margin-left: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .timeline-node {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+
+  .timeline-node::before {
+    content: '';
+    position: absolute;
+    left: -29px;
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent-emerald);
+    border: 2px solid #030712;
+  }
+
+  .timeline-content {
+    background: rgba(255,255,255,0.01);
+    border: 1px solid rgba(255,255,255,0.04);
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="report-section">
+  <div class="container">
+    
+    <!-- Report Title -->
+    <div class="report-header reveal-on-scroll">
+      <div class="section-tag"><i class="fa-solid fa-file-shield"></i> Digital Identity Audit</div>
+      <h2 class="section-title">Sovereignty <span class="gradient-text">Report Card</span></h2>
+      <p class="section-description">A multi-dimensional breakdown of your digital literacy, privacy scores, and cybersecurity strengths.</p>
+    </div>
+
+    <!-- Core Score Metrics Grid -->
+    <div class="report-grid">
+      
+      <!-- Score Rings Panel -->
+      <div class="score-cards-panel">
+        
+        <!-- 1. Privacy Score -->
+        <div class="score-card">
+          <div class="circular-progress" data-value="{{ profile.privacy_score }}">
+            <svg>
+              <circle class="bg-ring" cx="55" cy="55" r="48" />
+              <circle class="fill-ring" cx="55" cy="55" r="48" stroke="var(--primary-cyan)" stroke-dasharray="301.6" stroke-dashoffset="301.6" />
+            </svg>
+            <div class="grade-text">{{ privacy_grade }}</div>
+          </div>
+          <div class="score-label">Privacy Shield</div>
+          <div class="score-value">{{ profile.privacy_score }} / 100</div>
+        </div>
+
+        <!-- 2. Security Score -->
+        <div class="score-card">
+          <div class="circular-progress" data-value="{{ profile.security_score }}">
+            <svg>
+              <circle class="bg-ring" cx="55" cy="55" r="48" />
+              <circle class="fill-ring" cx="55" cy="55" r="48" stroke="var(--primary-purple)" stroke-dasharray="301.6" stroke-dashoffset="301.6" />
+            </svg>
+            <div class="grade-text">{{ security_grade }}</div>
+          </div>
+          <div class="score-label">Cyber Defense</div>
+          <div class="score-value">{{ profile.security_score }} / 100</div>
+        </div>
+
+        <!-- 3. Reputation Score -->
+        <div class="score-card">
+          <div class="circular-progress" data-value="{{ profile.reputation_score }}">
+            <svg>
+              <circle class="bg-ring" cx="55" cy="55" r="48" />
+              <circle class="fill-ring" cx="55" cy="55" r="48" stroke="var(--accent-magenta)" stroke-dasharray="301.6" stroke-dashoffset="301.6" />
+            </svg>
+            <div class="grade-text">{{ reputation_grade }}</div>
+          </div>
+          <div class="score-label">Digital Reputation</div>
+          <div class="score-value">{{ profile.reputation_score }} / 100</div>
+        </div>
+
+        <!-- 4. Trust Score -->
+        <div class="score-card">
+          <div class="circular-progress" data-value="{{ profile.trust_score }}">
+            <svg>
+              <circle class="bg-ring" cx="55" cy="55" r="48" />
+              <circle class="fill-ring" cx="55" cy="55" r="48" stroke="#10b981" stroke-dasharray="301.6" stroke-dashoffset="301.6" />
+            </svg>
+            <div class="grade-text">{{ trust_grade }}</div>
+          </div>
+          <div class="score-label">Digital Trust</div>
+          <div class="score-value">{{ profile.trust_score }} / 100</div>
+        </div>
+
+      </div>
+
+      <!-- Overall Sovereignty Index Summary -->
+      <div class="score-card" style="justify-content: center; padding: 2rem;">
+        <div class="circular-progress" style="width: 150px; height: 150px;" data-value="{{ overall_score }}">
+          <svg style="width: 100%; height: 100%;">
+            <circle class="bg-ring" cx="75" cy="75" r="66" stroke-width="12" />
+            <circle class="fill-ring" cx="75" cy="75" r="66" stroke-width="12" stroke="url(#reportGlow)" stroke-dasharray="414.7" stroke-dashoffset="414.7" />
+            <defs>
+              <linearGradient id="reportGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00f0ff" />
+                <stop offset="100%" stop-color="#8b5cf6" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="grade-text" style="font-size: 2.5rem; color: #00f0ff;">{{ overall_grade }}</div>
+        </div>
+        <h3 class="score-label" style="font-size: 1.4rem; margin-top: 1rem;">Sovereignty Index</h3>
+        <p class="score-value" style="font-size: 1rem;">Total Score: {{ overall_score }}%</p>
+        
+        <div class="progress-stats" style="width: 100%; margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1.25rem;">
+          <div class="stat">
+            <span class="label">XP</span>
+            <span class="val" style="color: var(--primary-cyan);"><i class="fa-solid fa-bolt"></i> {{ profile.xp }}</span>
+          </div>
+          <div class="stat">
+            <span class="label">Gold</span>
+            <span class="val" style="color: #f59e0b;"><i class="fa-solid fa-coins"></i> {{ profile.coins }}</span>
+          </div>
+          <div class="stat">
+            <span class="label">Stars</span>
+            <span class="val" style="color: #f39c12;"><i class="fa-solid fa-star"></i> {{ profile.stars }}</span>
+          </div>
+          <div class="stat">
+            <span class="label">Risk</span>
+            <span class="val {% if profile.footprint_risk == 'Low' %}neon-emerald{% else %}neon-text{% endif %}">
+              {{ profile.footprint_risk }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Recommendations & Badge Unlocks -->
+    <div class="report-grid">
+      
+      <!-- Left: Recommendations Checklist -->
+      <div class="rec-card">
+        <h3 style="color:#fff; font-weight:800; font-size:1.3rem; margin-bottom:1.5rem; display:flex; align-items:center; gap:0.5rem;">
+          <i class="fa-solid fa-circle-nodes" style="color:var(--primary-cyan);"></i> Customized Audit Guidelines
+        </h3>
+        
+        <div class="rec-list">
+          {% for sk in skills %}
+            <div class="rec-item">
+              <div class="rec-dot" style="background: {{ sk.color }};"></div>
+              <div class="rec-info">
+                <h4>{{ sk.name }} <span style="font-size:0.75rem; color:{{ sk.color }}; margin-left:0.25rem;">[{{ sk.status }}]</span></h4>
+                <p>{{ sk.tip }}</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Right: Badges Unlocked -->
+      <div class="rec-card">
+        <h3 style="color:#fff; font-weight:800; font-size:1.3rem; margin-bottom:1.5rem; display:flex; align-items:center; gap:0.5rem;">
+          <i class="fa-solid fa-medal" style="color:var(--primary-purple);"></i> Unlocked Badges ({{ badges|length }})
+        </h3>
+        
+        {% if badges %}
+          <div class="badge-grid">
+            {% for bg in badges %}
+              <div class="badge-card">
+                <div class="badge-icon-box">
+                  <i class="{{ bg.icon_class }}"></i>
+                </div>
+                <div class="badge-title">{{ bg.name }}</div>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p style="color:var(--text-muted); font-size:0.9rem; text-align:center; padding: 2rem 0;">No badges unlocked yet. Keep playing!</p>
+        {% endif %}
+      </div>
+
+    </div>
+
+    <!-- Levels Completion Timeline -->
+    <div class="rec-card" style="margin-top: 2rem;">
+      <h3 style="color:#fff; font-weight:800; font-size:1.3rem; margin-bottom:2rem; display:flex; align-items:center; gap:0.5rem;">
+        <i class="fa-solid fa-list-check" style="color:var(--accent-emerald);"></i> Adventure Quest Timeline
+      </h3>
+      
+      {% if timeline %}
+        <div class="timeline-list">
+          {% for tm in timeline %}
+            <div class="timeline-node">
+              <div class="timeline-content">
+                <strong>Quest Level {{ tm.level_number }} Completed!</strong>
+                <span style="color:var(--text-muted); font-size:0.8rem; margin-left:1rem;">{{ tm.completed_at|date:"M d, Y H:i" }}</span>
+                <span style="float:right; color:#10b981; font-weight:700;"><i class="fa-solid fa-bolt"></i> +100 XP</span>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p style="color:var(--text-muted); text-align:center; padding:2rem 0;">No levels completed yet.</p>
+      {% endif %}
+      
+      <div style="text-align: center; margin-top: 2.5rem;">
+        <a href="{% url 'journey:index' %}" class="btn btn-secondary">
+          <i class="fa-solid fa-circle-arrow-left"></i> Return to Quest Map
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Animation Controller script -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const circles = document.querySelectorAll('.circular-progress');
+    circles.forEach(cp => {
+      const val = parseInt(cp.getAttribute('data-value'));
+      const circleFill = cp.querySelector('.fill-ring');
+      if (circleFill) {
+        // Calculate stroke offset based on radius
+        const r = circleFill.r.baseVal.value;
+        const c = 2 * Math.PI * r;
+        const offset = c - (val / 100) * c;
+        circleFill.style.strokeDasharray = c;
+        // Trigger transition on next frame
+        setTimeout(() => {
+          circleFill.style.strokeDashoffset = offset;
+        }, 100);
+      }
+    });
+  });
+</script>
+{% endblock %}

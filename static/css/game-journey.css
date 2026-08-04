@@ -49,26 +49,30 @@
 }
 
 .progress-stats {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
   margin-bottom: 0.75rem;
 }
 
 .progress-stats .stat {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .progress-stats .label {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .progress-stats .val {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 800;
+  margin-top: 0.2rem;
 }
 
 .progress-bar-container {
@@ -287,6 +291,18 @@
   transition: color 0.3s ease;
 }
 
+.game-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--accent-magenta);
+  border: 1px solid var(--accent-magenta);
+  padding: 0.05rem 0.3rem;
+  border-radius: 3px;
+  margin-left: 0.25rem;
+  vertical-align: middle;
+}
+
 .level-node-wrapper:not(.locked):hover .level-label .lvl-title {
   color: var(--primary-cyan);
 }
@@ -384,35 +400,6 @@
   justify-content: center;
 }
 
-.status-badge {
-  font-size: 0.75rem;
-  padding: 0.25rem 0.6rem;
-  border-radius: var(--border-radius-full);
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  text-transform: uppercase;
-}
-
-.status-badge.completed {
-  background: rgba(16, 185, 129, 0.15);
-  border: 1px solid var(--accent-emerald);
-  color: var(--accent-emerald);
-}
-
-.status-badge.unlocked {
-  background: rgba(6, 182, 212, 0.15);
-  border: 1px solid var(--primary-cyan);
-  color: var(--primary-cyan);
-}
-
-.status-badge.locked {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--text-muted);
-}
-
 .level-node-wrapper:hover .level-tooltip {
   opacity: 1;
   transform: translateY(0) scale(1);
@@ -456,6 +443,31 @@
   letter-spacing: 2px;
 }
 
+.mascot-modal-bubble {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-md);
+  font-size: 0.85rem;
+  color: #fff;
+  max-width: 250px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.mascot-modal-bubble::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background: rgba(15, 23, 42, 0.95);
+  border-left: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+}
+
 .modal-body-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -497,15 +509,6 @@
 
 .lesson-content p {
   margin-bottom: 1rem;
-}
-
-.lesson-content ul {
-  padding-left: 1.25rem;
-  margin-bottom: 1rem;
-}
-
-.lesson-content li {
-  margin-bottom: 0.5rem;
 }
 
 /* Challenge Section Choices */
@@ -592,4 +595,556 @@
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-6px); }
   75% { transform: translateX(6px); }
+}
+
+/* ==========================================================================
+   MINI-GAMES SPECIFIC WIDGETS
+   ========================================================================== */
+
+/* 1. Build a Strong Password */
+.passgame-input-container {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.passgame-input {
+  flex-grow: 1;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--glass-border);
+  padding: 0.8rem 1.2rem;
+  border-radius: var(--border-radius-md);
+  color: #fff;
+  font-family: 'Fira Code', monospace;
+  font-size: 1.1rem;
+}
+
+.passgame-tokens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.passgame-token-btn {
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  color: var(--primary-cyan);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.passgame-token-btn:hover {
+  background: rgba(6, 182, 212, 0.25);
+  transform: scale(1.05);
+}
+
+.passgame-strength-meter {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.passgame-strength-fill {
+  height: 100%;
+  width: 0%;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.passgame-strength-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+/* 2. Public Wi-Fi sorting cards */
+.wifigame-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.wifigame-card-box {
+  width: 100%;
+  max-width: 320px;
+  height: 180px;
+  margin-bottom: 2rem;
+  perspective: 1000px;
+}
+
+.wifigame-card-inner {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 2px solid var(--primary-cyan);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0, 240, 255, 0.15);
+  transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.wifigame-card-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.wifigame-card-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.wifigame-btn-bar {
+  display: flex;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 320px;
+}
+
+.wifigame-btn {
+  flex: 1;
+  padding: 0.8rem;
+  border-radius: var(--border-radius-md);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.wifigame-btn.btn-unsafe {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid #ef4444;
+  color: #ef4444;
+}
+
+.wifigame-btn.btn-unsafe:hover {
+  background: #ef4444;
+  color: #fff;
+}
+
+.wifigame-btn.btn-safe {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid var(--accent-emerald);
+  color: var(--accent-emerald);
+}
+
+.wifigame-btn.btn-safe:hover {
+  background: var(--accent-emerald);
+  color: #fff;
+}
+
+/* 3. Spot the Scam link components */
+.scamgame-url-card {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--glass-border);
+  padding: 1rem;
+  border-radius: var(--border-radius-md);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.scamgame-url-text {
+  font-family: 'Fira Code', monospace;
+  font-size: 1.2rem;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.scamgame-url-text span {
+  padding: 0.15rem 0.3rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.scamgame-url-text span:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.scamgame-url-text span.flagged {
+  background: rgba(239, 68, 68, 0.25);
+  border: 1px solid #ef4444;
+  color: #ff6b6b;
+}
+
+/* 4. Email Detective phishing box */
+.detective-email-box {
+  background: #0f172a;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-md);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.detective-header {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.detective-header-row {
+  margin-bottom: 0.35rem;
+}
+
+.detective-header-row strong {
+  color: #fff;
+}
+
+.detective-body {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #e2e8f0;
+}
+
+.detective-clue-span {
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.detective-clue-span:hover {
+  background: rgba(6, 182, 212, 0.08);
+  border-bottom-color: var(--primary-cyan);
+}
+
+.detective-clue-span.found {
+  background: rgba(16, 185, 129, 0.15) !important;
+  border-bottom: 1px solid var(--accent-emerald) !important;
+  color: #34d399 !important;
+}
+
+/* 5. Settings Puzzle Toggles */
+.settingsgame-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.settingsgame-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--glass-border);
+  padding: 1rem;
+  border-radius: var(--border-radius-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.settingsgame-label h4 {
+  font-size: 0.95rem;
+  color: #fff;
+  margin-bottom: 0.15rem;
+}
+
+.settingsgame-label p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Custom CSS switch toggle */
+.switch-input {
+  display: none;
+}
+
+.switch-label {
+  width: 46px;
+  height: 24px;
+  background: #334155;
+  border-radius: var(--border-radius-full);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.switch-label::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  transition: left 0.3s ease;
+}
+
+.switch-input:checked + .switch-label {
+  background: var(--primary-cyan);
+}
+
+.switch-input:checked + .switch-label::after {
+  left: 25px;
+}
+
+/* 6. Cookie Monster bucket */
+.cookiegame-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.cookiegame-monster {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 1.5rem;
+}
+
+.cookiegame-monster svg {
+  width: 100%;
+  height: 100%;
+}
+
+.cookiegame-card {
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  padding: 1.5rem;
+  border-radius: var(--border-radius-md);
+  margin-bottom: 1.5rem;
+  max-width: 320px;
+}
+
+.cookiegame-card h4 {
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.4rem;
+}
+
+.cookiegame-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* 7. Permission Manager Screen */
+.permgame-screen {
+  background: #000;
+  width: 100%;
+  max-width: 290px;
+  height: 480px;
+  border-radius: var(--border-radius-lg);
+  border: 8px solid #334155;
+  position: relative;
+  margin: 0 auto 1.5rem auto;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.permgame-app-header {
+  height: 45px;
+  background: #1e293b;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.permgame-app-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+.permgame-alert-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85%;
+  background: #1e293b;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+  border: 1px solid rgba(255,255,255,0.08);
+  text-align: center;
+  animation: scaleAlert 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.permgame-alert-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.permgame-alert-desc {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-bottom: 1.2rem;
+  line-height: 1.4;
+}
+
+.permgame-alert-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.permgame-alert-btn {
+  padding: 0.55rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+}
+
+.permgame-alert-btn.btn-allow {
+  background: var(--primary-cyan);
+  color: #0f172a;
+}
+
+.permgame-alert-btn.btn-deny {
+  background: #334155;
+  color: #fff;
+}
+
+@keyframes scaleAlert {
+  0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+/* 8. Memory Match Card Grid */
+.matchgame-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  max-width: 360px;
+  margin: 0 auto 1.5rem auto;
+}
+
+.matchgame-card {
+  aspect-ratio: 1;
+  background: #1e293b;
+  border: 2px solid var(--glass-border);
+  border-radius: var(--border-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  perspective: 1000px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.matchgame-card:hover {
+  border-color: var(--primary-cyan);
+  box-shadow: 0 0 10px rgba(0,240,255,0.2);
+}
+
+.matchgame-card.flipped {
+  background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%);
+  border-color: var(--primary-purple);
+  color: #fff;
+  transform: rotateY(180deg);
+}
+
+.matchgame-card.matched {
+  background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+  border-color: var(--accent-emerald);
+  color: #fff;
+  cursor: default;
+  opacity: 0.85;
+}
+
+.matchgame-card-content {
+  font-size: 1.2rem;
+  font-weight: 800;
+  display: none;
+}
+
+.matchgame-card.flipped .matchgame-card-content,
+.matchgame-card.matched .matchgame-card-content {
+  display: block;
+  transform: rotateY(180deg);
+}
+
+/* 9. Cyber Escape Room input panel */
+.escapegame-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.escapegame-clue-box {
+  background: #020617;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-md);
+  padding: 1rem;
+  font-family: 'Fira Code', monospace;
+  color: var(--primary-cyan);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  max-width: 320px;
+  box-shadow: inset 0 0 15px rgba(0,240,255,0.15);
+}
+
+.escapegame-terminal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.escapegame-input {
+  background: #000;
+  border: 1px solid var(--glass-border);
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  color: var(--accent-emerald);
+  font-family: 'Fira Code', monospace;
+  font-size: 1.1rem;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.escapegame-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.escapegame-key {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #fff;
+  padding: 0.65rem;
+  font-family: 'Fira Code', monospace;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.escapegame-key:hover {
+  background: rgba(6, 182, 212, 0.15);
+  border-color: var(--primary-cyan);
 }
