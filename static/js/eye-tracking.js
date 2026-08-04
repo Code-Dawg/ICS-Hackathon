@@ -1,17 +1,17 @@
 /**
  * ==========================================================================
- * EYE-TRACKING & CYBER AVATAR PHYSICS
- * Pupils follow cursor position with clamped rotation and head tilt
+ * FOOTPRINT QUEST MASCOT - EYE TRACKING & BLINKING PHYSICS
+ * Controls the cute mascot head's large glowing white eyes and pupils
  * ==========================================================================
  */
 
-class CyberAvatar {
+class CuteMascotAvatar {
   constructor() {
-    this.leftPupil = document.getElementById('left-pupil');
-    this.rightPupil = document.getElementById('right-pupil');
-    this.avatarHead = document.getElementById('avatar-head');
-    this.eyelids = document.querySelectorAll('.eye-lid');
-    this.avatarContainer = document.querySelector('.avatar-container');
+    this.leftPupil = document.getElementById('mascot-left-pupil');
+    this.rightPupil = document.getElementById('mascot-right-pupil');
+    this.mascotHead = document.getElementById('mascot-head');
+    this.eyelids = document.querySelectorAll('.mascot-eyelid');
+    this.mascotContainer = document.querySelector('.mascot-container');
 
     if (!this.leftPupil || !this.rightPupil) return;
 
@@ -25,8 +25,8 @@ class CyberAvatar {
 
   initEvents() {
     window.addEventListener('mousemove', (e) => {
-      if (!this.avatarContainer) return;
-      const rect = this.avatarContainer.getBoundingClientRect();
+      if (!this.mascotContainer) return;
+      const rect = this.mascotContainer.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
 
@@ -35,14 +35,16 @@ class CyberAvatar {
       const dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
       const angle = Math.atan2(deltaY, deltaX);
 
-      const maxRadius = 16;
-      const clampedDist = Math.min(dist * 0.08, maxRadius);
+      // Max pupil movement radius for cute mascot eyes
+      const maxRadius = 14;
+      const clampedDist = Math.min(dist * 0.06, maxRadius);
 
       this.targetX = Math.cos(angle) * clampedDist;
       this.targetY = Math.sin(angle) * clampedDist;
 
-      this.headTiltX = Math.max(-5, Math.min(5, (e.clientX - window.innerWidth / 2) * 0.01));
-      this.headTiltY = Math.max(-4, Math.min(4, (e.clientY - window.innerHeight / 2) * 0.01));
+      // Slight head tilt (max 6 deg)
+      this.headTiltX = Math.max(-6, Math.min(6, (e.clientX - window.innerWidth / 2) * 0.012));
+      this.headTiltY = Math.max(-5, Math.min(5, (e.clientY - window.innerHeight / 2) * 0.012));
     });
 
     document.addEventListener('mouseleave', () => {
@@ -56,35 +58,36 @@ class CyberAvatar {
       this.eyelids.forEach(el => el.classList.add('blinking'));
       setTimeout(() => {
         this.eyelids.forEach(el => el.classList.remove('blinking'));
-      }, 150);
+      }, 140);
 
-      if (Math.random() < 0.25) {
+      // Cute double blink occasionally
+      if (Math.random() < 0.3) {
         setTimeout(() => {
           this.eyelids.forEach(el => el.classList.add('blinking'));
           setTimeout(() => {
             this.eyelids.forEach(el => el.classList.remove('blinking'));
-          }, 140);
-        }, 300);
+          }, 120);
+        }, 280);
       }
 
-      setTimeout(blink, Math.random() * 3500 + 2500);
+      setTimeout(blink, Math.random() * 3200 + 2200);
     };
-    setTimeout(blink, 3000);
+    setTimeout(blink, 2500);
   }
 
   updatePhysics() {
-    this.currentX += (this.targetX - this.currentX) * 0.12;
-    this.currentY += (this.targetY - this.currentY) * 0.12;
+    this.currentX += (this.targetX - this.currentX) * 0.14;
+    this.currentY += (this.targetY - this.currentY) * 0.14;
 
     if (this.leftPupil && this.rightPupil) {
       this.leftPupil.setAttribute('transform', `translate(${this.currentX}, ${this.currentY})`);
       this.rightPupil.setAttribute('transform', `translate(${this.currentX}, ${this.currentY})`);
     }
 
-    if (this.avatarHead) {
+    if (this.mascotHead) {
       const tiltX = this.headTiltX || 0;
       const tiltY = this.headTiltY || 0;
-      this.avatarHead.style.transform = `rotate(${tiltX}deg) translate(${tiltX * 1.5}px, ${tiltY * 1.5}px)`;
+      this.mascotHead.style.transform = `rotate(${tiltX}deg) translate(${tiltX * 1.2}px, ${tiltY * 1.2}px)`;
     }
 
     requestAnimationFrame(() => this.updatePhysics());
@@ -92,5 +95,5 @@ class CyberAvatar {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  new CyberAvatar();
+  new CuteMascotAvatar();
 });

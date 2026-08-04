@@ -1,7 +1,7 @@
 /**
  * ==========================================================================
- * SPACE BACKGROUND CANVAS ENGINE
- * Stars, Nebula Clouds, Floating Digital Footprints, Shooting Stars
+ * FOOTPRINT QUEST - SPACE & DIGITAL BACKDROP ENGINE
+ * Floating footprints, stars, nebula clouds, network lines, lock & shield icons, binary particles
  * ==========================================================================
  */
 
@@ -12,7 +12,8 @@ class SpaceEngine {
     this.ctx = this.canvas.getContext('2d');
     this.stars = [];
     this.footprints = [];
-    this.meteors = [];
+    this.binaryParticles = [];
+    this.floatingIcons = [];
     this.nebulaClouds = [];
     this.ripples = [];
     this.mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
@@ -31,8 +32,10 @@ class SpaceEngine {
 
   init() {
     this.resize();
-    this.createStars(140);
-    this.createFootprints(24);
+    this.createStars(150);
+    this.createFootprints(28);
+    this.createBinaryParticles(40);
+    this.createFloatingIcons(18);
     this.createNebula(5);
   }
 
@@ -60,7 +63,7 @@ class SpaceEngine {
       this.footprints.push({
         x: Math.random() * this.width,
         y: Math.random() * this.height,
-        size: Math.random() * 16 + 12,
+        size: Math.random() * 18 + 12,
         vx: (Math.random() - 0.5) * 0.4,
         vy: -Math.random() * 0.5 - 0.2,
         rotation: Math.random() * Math.PI * 2,
@@ -72,14 +75,46 @@ class SpaceEngine {
     }
   }
 
+  createBinaryParticles(count) {
+    this.binaryParticles = [];
+    for (let i = 0; i < count; i++) {
+      this.binaryParticles.push({
+        x: Math.random() * this.width,
+        y: Math.random() * this.height,
+        text: Math.random() > 0.5 ? '1' : '0',
+        size: Math.random() * 12 + 10,
+        vy: -Math.random() * 0.4 - 0.1,
+        alpha: Math.random() * 0.4 + 0.1,
+        color: 'rgba(0, 240, 255, 0.4)'
+      });
+    }
+  }
+
+  createFloatingIcons(count) {
+    this.floatingIcons = [];
+    const types = ['shield', 'lock', 'circle'];
+    for (let i = 0; i < count; i++) {
+      this.floatingIcons.push({
+        x: Math.random() * this.width,
+        y: Math.random() * this.height,
+        type: types[i % types.length],
+        size: Math.random() * 16 + 14,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        alpha: Math.random() * 0.35 + 0.15,
+        rotation: Math.random() * Math.PI * 2
+      });
+    }
+  }
+
   createNebula(count) {
     this.nebulaClouds = [];
     for (let i = 0; i < count; i++) {
       this.nebulaClouds.push({
         x: Math.random() * this.width,
         y: Math.random() * this.height,
-        radius: Math.random() * 250 + 150,
-        color: i % 2 === 0 ? 'rgba(0, 240, 255, 0.03)' : 'rgba(139, 92, 246, 0.035)',
+        radius: Math.random() * 260 + 160,
+        color: i % 2 === 0 ? 'rgba(0, 240, 255, 0.035)' : 'rgba(139, 92, 246, 0.04)',
         vx: (Math.random() - 0.5) * 0.2,
         vy: (Math.random() - 0.5) * 0.2
       });
@@ -90,7 +125,7 @@ class SpaceEngine {
     this.ripples.push({ x, y, radius: 0, alpha: 0.8 });
   }
 
-  drawDigitalFootprint(x, y, size, rotation, alpha, color) {
+  drawFootprint(x, y, size, rotation, alpha, color) {
     this.ctx.save();
     this.ctx.translate(x, y);
     this.ctx.rotate(rotation);
@@ -114,9 +149,42 @@ class SpaceEngine {
     this.ctx.restore();
   }
 
+  drawIcon(icon) {
+    this.ctx.save();
+    this.ctx.translate(icon.x, icon.y);
+    this.ctx.rotate(icon.rotation);
+    this.ctx.globalAlpha = icon.alpha;
+    this.ctx.strokeStyle = '#00f0ff';
+    this.ctx.lineWidth = 1.5;
+
+    if (icon.type === 'shield') {
+      this.ctx.beginPath();
+      this.ctx.moveTo(0, -icon.size / 2);
+      this.ctx.lineTo(icon.size / 2, -icon.size / 4);
+      this.ctx.lineTo(icon.size / 2, icon.size / 4);
+      this.ctx.lineTo(0, icon.size / 2);
+      this.ctx.lineTo(-icon.size / 2, icon.size / 4);
+      this.ctx.lineTo(-icon.size / 2, -icon.size / 4);
+      this.ctx.closePath();
+      this.ctx.stroke();
+    } else if (icon.type === 'lock') {
+      this.ctx.strokeRect(-icon.size / 3, -icon.size / 4, icon.size * 0.66, icon.size * 0.6);
+      this.ctx.beginPath();
+      this.ctx.arc(0, -icon.size / 4, icon.size / 4, Math.PI, 0);
+      this.ctx.stroke();
+    } else {
+      this.ctx.beginPath();
+      this.ctx.arc(0, 0, icon.size / 2, 0, Math.PI * 2);
+      this.ctx.stroke();
+    }
+
+    this.ctx.restore();
+  }
+
   animate() {
     this.ctx.clearRect(0, 0, this.width, this.height);
 
+    // 1. Nebula Clouds
     for (let n of this.nebulaClouds) {
       n.x += n.vx; n.y += n.vy;
       if (n.x < -n.radius) n.x = this.width + n.radius;
@@ -133,6 +201,7 @@ class SpaceEngine {
       this.ctx.fill();
     }
 
+    // 2. Stars
     for (let s of this.stars) {
       s.alpha += s.twinkleSpeed;
       if (s.alpha <= 0.1 || s.alpha >= 1) s.twinkleSpeed *= -1;
@@ -143,8 +212,8 @@ class SpaceEngine {
       let shiftX = 0, shiftY = 0;
       if (dist < 120) {
         const force = (120 - dist) / 120;
-        shiftX = -(dx / dist) * force * 15;
-        shiftY = -(dy / dist) * force * 15;
+        shiftX = -(dx / dist) * force * 12;
+        shiftY = -(dy / dist) * force * 12;
       }
 
       this.ctx.fillStyle = `rgba(255, 255, 255, ${s.alpha})`;
@@ -153,34 +222,37 @@ class SpaceEngine {
       this.ctx.fill();
     }
 
+    // 3. Binary Particles
+    this.ctx.font = '12px Fira Code, monospace';
+    for (let b of this.binaryParticles) {
+      b.y += b.vy;
+      if (b.y < -20) { b.y = this.height + 20; b.x = Math.random() * this.width; }
+      this.ctx.fillStyle = b.color;
+      this.ctx.globalAlpha = b.alpha;
+      this.ctx.fillText(b.text, b.x, b.y);
+    }
+    this.ctx.globalAlpha = 1;
+
+    // 4. Floating Privacy & Lock Icons
+    for (let icon of this.floatingIcons) {
+      icon.x += icon.vx; icon.y += icon.vy; icon.rotation += 0.005;
+      if (icon.x < -30) icon.x = this.width + 30;
+      if (icon.x > this.width + 30) icon.x = -30;
+      if (icon.y < -30) icon.y = this.height + 30;
+      if (icon.y > this.height + 30) icon.y = -30;
+
+      this.drawIcon(icon);
+    }
+
+    // 5. Floating Footprints
     for (let f of this.footprints) {
       f.x += f.vx; f.y += f.vy; f.rotation += f.vRot; f.pulse += 0.03;
       const currentAlpha = f.alpha + Math.sin(f.pulse) * 0.15;
       if (f.y < -50) { f.y = this.height + 50; f.x = Math.random() * this.width; }
-      this.drawDigitalFootprint(f.x, f.y, f.size, f.rotation, Math.max(0.1, currentAlpha), f.color);
+      this.drawFootprint(f.x, f.y, f.size, f.rotation, Math.max(0.1, currentAlpha), f.color);
     }
 
-    if (Math.random() < 0.02) {
-      this.meteors.push({
-        x: Math.random() * this.width,
-        y: Math.random() * (this.height / 2),
-        length: Math.random() * 80 + 50,
-        speed: Math.random() * 10 + 8,
-        alpha: 1
-      });
-    }
-
-    for (let i = this.meteors.length - 1; i >= 0; i--) {
-      const m = this.meteors[i];
-      m.x += m.speed; m.y += m.speed * 0.6; m.alpha -= 0.02;
-      if (m.alpha <= 0) { this.meteors.splice(i, 1); continue; }
-      const grad = this.ctx.createLinearGradient(m.x, m.y, m.x - m.length, m.y - m.length * 0.6);
-      grad.addColorStop(0, `rgba(0, 240, 255, ${m.alpha})`);
-      grad.addColorStop(1, 'transparent');
-      this.ctx.strokeStyle = grad; this.ctx.lineWidth = 2;
-      this.ctx.beginPath(); this.ctx.moveTo(m.x, m.y); this.ctx.lineTo(m.x - m.length, m.y - m.length * 0.6); this.ctx.stroke();
-    }
-
+    // 6. Ripples
     for (let i = this.ripples.length - 1; i >= 0; i--) {
       const r = this.ripples[i];
       r.radius += 2.5; r.alpha -= 0.02;

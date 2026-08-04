@@ -1,19 +1,13 @@
 """
 ==============================================================================
-CORE CONTEXT PROCESSORS
-Provides global data accessible across all templates automatically.
+CORE CONTEXT PROCESSORS - FOOTPRINT QUEST
+Provides global Footprint Quest metadata across all templates.
 ==============================================================================
 """
 
-from django.conf import settings
-
 def global_site_context(request):
-    """
-    Context processor to pass project-wide metadata and features to all templates.
-    This allows base.html and partial templates to access global settings effortlessly.
-    """
     return {
-        'SITE_NAME': 'EduPulse',
-        'SITE_TAGLINE': 'Futuristic Digital Footprint & Learning Platform',
+        'SITE_NAME': 'Footprint Quest',
+        'SITE_TAGLINE': 'Gamified Digital Footprint & Privacy Quest',
         'CURRENT_YEAR': 2026,
     }

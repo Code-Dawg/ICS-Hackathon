@@ -1,46 +1,203 @@
 {% extends 'base.html' %}
-{% block title %}Learning Journey | EduPulse{% endblock %}
+{% load static %}
+
+{% block title %}Learning Journey | Footprint Quest{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/game-journey.css' %}">
+{% endblock %}
 
 {% block content %}
-<section class="timeline-section" style="padding-top: 10rem;">
+<!-- Confetti canvas for celebrations -->
+<canvas id="confetti-canvas"></canvas>
+
+<section class="game-journey-section" style="padding-top: 8rem; padding-bottom: 6rem; min-height: 100vh; position: relative; overflow: hidden;">
   <div class="container">
-    <div class="section-header">
-      <div class="section-tag"><i class="fa-solid fa-route"></i> Roadmap</div>
-      <h2 class="section-title">The Digital <span class="gradient-text">Learning Journey</span></h2>
-      <p class="section-description">Follow step-by-step milestones to secure your identity online.</p>
+    
+    <!-- Header with progress stats -->
+    <div class="journey-header reveal-on-scroll">
+      <div class="header-left">
+        <div class="section-tag"><i class="fa-solid fa-route"></i> Quest Map</div>
+        <h2 class="section-title">Your <span class="gradient-text">Learning Journey</span></h2>
+        <p class="section-description">Complete level milestones to earn XP and secure your digital shadow.</p>
+      </div>
+      
+      <!-- Gamified XP and Progress tracker -->
+      <div class="header-right">
+        <div class="progress-card glass-panel">
+          <div class="progress-stats">
+            <div class="stat">
+              <span class="label">Level Progression</span>
+              <span class="val">{{ progress_percentage }}%</span>
+            </div>
+            <div class="stat">
+              <span class="label">Total XP</span>
+              <span class="val neon-text"><i class="fa-solid fa-bolt"></i> <span id="user-xp-display">{{ user_xp }}</span> XP</span>
+            </div>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill" style="width: {{ progress_percentage }}%;"></div>
+          </div>
+          <div class="progress-caption">
+            {% if current_user_level > 12 %}
+              Quest Completed! You are a certified Privacy Sovereign!
+            {% else %}
+              Next up: Level {{ current_user_level }}
+            {% endif %}
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="timeline-wrapper">
-      <div class="timeline-bar"><div class="timeline-progress"></div></div>
+    <!-- The Interactive Level Progression Map -->
+    <div class="map-wrapper">
+      <!-- Dynamic SVG path connecting all level nodes -->
+      <svg class="map-path-svg">
+        <path id="map-connection-line" d="" fill="none" stroke="rgba(0, 240, 255, 0.25)" stroke-width="5" stroke-dasharray="10, 10" />
+        <path id="map-progress-line" d="" fill="none" stroke="url(#mapLineGrad)" stroke-width="5.5" stroke-dasharray="10, 10" />
+        
+        <defs>
+          <linearGradient id="mapLineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#00f0ff" />
+            <stop offset="100%" stop-color="#8b5cf6" />
+          </linearGradient>
+        </defs>
+      </svg>
 
-      {% for step in steps %}
-        <div class="timeline-item active">
-          <div class="timeline-node"></div>
-          <div class="timeline-card">
-            <div class="timeline-step">Step 0{{ step.step_number }}</div>
-            <h3>{{ step.title }}</h3>
-            <p>{{ step.description }}</p>
+      <div class="levels-map" id="levels-map">
+        {% for lvl in levels %}
+          <div class="map-row row-{{ lvl.level }}" data-level="{{ lvl.level }}">
+            <div class="level-node-wrapper {{ lvl.status }}" 
+                 data-level="{{ lvl.level }}"
+                 data-title="{{ lvl.title }}"
+                 data-status="{{ lvl.status }}"
+                 data-icon="{{ lvl.icon }}"
+                 data-description="{{ lvl.description }}"
+                 data-lesson="{{ lvl.lesson }}"
+                 data-question="{{ lvl.question }}"
+                 data-choices='{{ lvl.choices|safe|default:"[]" }}'
+                 data-correct="{{ lvl.correct }}">
+              
+              <!-- The Node Button -->
+              <button class="level-node" aria-label="Level {{ lvl.level }} - {{ lvl.title }}">
+                <span class="node-inner">
+                  {% if lvl.status == "completed" %}
+                    <i class="fa-solid fa-circle-check node-icon-check"></i>
+                  {% elif lvl.status == "locked" %}
+                    <i class="fa-solid fa-lock node-icon-lock"></i>
+                  {% else %}
+                    <i class="fa-solid {{ lvl.icon }}"></i>
+                  {% endif %}
+                </span>
+                <span class="node-pulse"></span>
+              </button>
+
+              <!-- Cute mascot guide floating next to the unlocked node -->
+              {% if lvl.status == "unlocked" %}
+                <div class="mascot-map-guide">
+                  <div class="mascot-map-face">
+                    <svg viewBox="0 0 100 100" width="30" height="30">
+                      <circle cx="50" cy="50" r="45" fill="#0f172a" stroke="#00f0ff" stroke-width="3" />
+                      <circle cx="35" cy="45" r="8" fill="#fff" />
+                      <circle cx="65" cy="45" r="8" fill="#fff" />
+                      <circle cx="35" cy="45" r="4" fill="#00f0ff" />
+                      <circle cx="65" cy="45" r="4" fill="#00f0ff" />
+                      <path d="M 45 65 Q 50 72 55 65" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" />
+                    </svg>
+                  </div>
+                  <div class="mascot-speech-bubble">Play Level {{ lvl.level }}!</div>
+                </div>
+              {% endif %}
+
+              <!-- Level Title and Label -->
+              <div class="level-label">
+                <span class="lvl-num">Level {{ lvl.level }}</span>
+                <span class="lvl-title">{{ lvl.title }}</span>
+              </div>
+
+              <!-- Tooltip showing short details -->
+              <div class="level-tooltip">
+                <h4>Level {{ lvl.level }}: {{ lvl.title }}</h4>
+                <p>{{ lvl.description }}</p>
+                <div class="tooltip-status">
+                  {% if lvl.status == "completed" %}
+                    <span class="status-badge completed"><i class="fa-solid fa-check"></i> Completed (+100 XP)</span>
+                  {% elif lvl.status == "unlocked" %}
+                    <span class="status-badge unlocked"><i class="fa-solid fa-play"></i> Active (Play Now)</span>
+                  {% else %}
+                    <span class="status-badge locked"><i class="fa-solid fa-lock"></i> Locked (Complete previous level)</span>
+                  {% endif %}
+                </div>
+              </div>
+
+            </div>
           </div>
-        </div>
-      {% empty %}
-        <div class="timeline-item active">
-          <div class="timeline-node"></div>
-          <div class="timeline-card">
-            <div class="timeline-step">Step 01</div>
-            <h3>Account Initialization</h3>
-            <p>You establish your digital identity with cryptographic credentials.</p>
-          </div>
-        </div>
-        <div class="timeline-item active">
-          <div class="timeline-node"></div>
-          <div class="timeline-card">
-            <div class="timeline-step">Step 02</div>
-            <h3>Privacy Engineering</h3>
-            <p>Configuring zero-knowledge encryption, 2FA, and consent controls.</p>
-          </div>
-        </div>
-      {% endfor %}
+        {% endfor %}
+      </div>
     </div>
+
   </div>
 </section>
+
+<!-- Level Details Modal -->
+<div id="level-modal" class="modal-overlay">
+  <div class="modal-card level-modal-card">
+    <button class="modal-close" id="level-modal-close" aria-label="Close Modal">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    
+    <div class="modal-header-section">
+      <div class="level-icon-badge" id="modal-level-icon-badge">
+        <i class="fa-solid fa-route"></i>
+      </div>
+      <div>
+        <span class="modal-level-tag" id="modal-level-tag">LEVEL 0</span>
+        <h2 class="modal-title" id="modal-level-title">Welcome to Level</h2>
+      </div>
+    </div>
+
+    <div class="modal-body-layout">
+      <!-- Left side: Lesson Content -->
+      <div class="lesson-column">
+        <h3><i class="fa-solid fa-book-open"></i> Privacy Briefing</h3>
+        <div class="lesson-content" id="modal-lesson-content">
+          Loading lesson briefing content...
+        </div>
+      </div>
+      
+      <!-- Right side: Mini Challenge -->
+      <div class="challenge-column">
+        <h3><i class="fa-solid fa-puzzle-piece"></i> Sovereignty Challenge</h3>
+        
+        <div class="challenge-details" id="challenge-details-area">
+          <p class="challenge-question" id="modal-challenge-question">
+            Loading challenge question...
+          </p>
+          
+          <div class="challenge-choices" id="modal-challenge-choices">
+            <!-- Dynamically populated choices -->
+          </div>
+          
+          <!-- Validation status -->
+          <div class="challenge-feedback" id="challenge-feedback" style="display: none;">
+            <p class="feedback-text"></p>
+          </div>
+        </div>
+
+        <div class="modal-action-bar">
+          <button class="btn btn-glow" id="btn-complete-level" disabled>
+            <i class="fa-solid fa-bolt"></i> Complete Level & Claim 100 XP
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CSRF Token helper for AJAX -->
+<input type="hidden" id="csrf-token-holder" value="{{ csrf_token }}">
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/game-journey.js' %}"></script>
 {% endblock %}

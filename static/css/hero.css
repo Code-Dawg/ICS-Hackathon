@@ -1,5 +1,5 @@
 /* ==========================================================================
-   HERO SECTION & CYBER AVATAR STYLES
+   HERO SECTION & CUTE MASCOT HEAD STYLES
    ========================================================================== */
 
 .hero-section {
@@ -54,6 +54,7 @@
   color: var(--text-muted);
   margin-bottom: 2.5rem;
   max-width: 600px;
+  line-height: 1.7;
 }
 
 .hero-buttons {
@@ -62,38 +63,54 @@
   flex-wrap: wrap;
 }
 
-.hero-avatar-wrapper {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.avatar-container {
+/* CUTE MASCOT HEAD WRAPPER & SOFT CYAN AURA */
+.mascot-container {
   width: 100%;
-  max-width: 460px;
-  height: 520px;
+  max-width: 440px;
+  height: 480px;
   position: relative;
-  background: radial-gradient(circle at center, rgba(0, 240, 255, 0.1) 0%, transparent 70%);
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: avatarBreath 4s ease-in-out infinite alternate;
+  animation: mascotFloat 4s ease-in-out infinite alternate;
 }
 
-.cyber-head-svg {
+.mascot-aura {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(0, 240, 255, 0.35) 0%, rgba(139, 92, 246, 0.2) 50%, transparent 70%);
+  filter: blur(30px);
+  z-index: 1;
+  animation: auraPulse 3s ease-in-out infinite alternate;
+}
+
+.mascot-svg {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.3));
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.4));
   transform-origin: center center;
   transition: transform 0.1s ease-out;
 }
 
-.eye-lid {
+.mascot-eyelid {
   transition: transform 0.12s ease-in-out;
   transform-origin: center;
 }
 
-.eye-lid.blinking {
+.mascot-eyelid.blinking {
   transform: scaleY(0.05);
+}
+
+@keyframes mascotFloat {
+  0% { transform: translateY(0px) rotate(0deg); }
+  100% { transform: translateY(-12px) rotate(1.5deg); }
+}
+
+@keyframes auraPulse {
+  0% { opacity: 0.6; transform: scale(0.95); }
+  100% { opacity: 0.95; transform: scale(1.1); }
 }

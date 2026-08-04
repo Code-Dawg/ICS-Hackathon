@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}EduPulse | Futuristic Digital Footprint & Learning Platform{% endblock %}
+{% block title %}Footprint Quest | Futuristic Digital Footprint & Learning Platform{% endblock %}
 
 {% block content %}
 <!-- Hero Section with Eye-Tracking Cyber Avatar -->
@@ -13,8 +13,8 @@
       <div class="section-tag">
         <i class="fa-solid fa-user-shield"></i> Future of Digital Identity
       </div>
-      <h1 class="hero-title">
-        Understand Your <span class="gradient-text">Digital Footprint</span> Before It Defines You.
+      <h1 class="hero-title" style="font-size: 2.8rem; line-height: 1.2;">
+        Empowering global learners with futuristic education in <span class="gradient-text">digital sovereignty</span>, privacy protection, and cybersecurity.
       </h1>
       <p class="hero-subtitle">
         Every search, click, post, and login shapes your permanent digital shadow. Master digital sovereignty, privacy engineering, and cyber awareness through interactive futuristic simulations.
@@ -65,78 +65,70 @@
         </div>
       </div>
 
-      <!-- SVG Digital Cyber Human Avatar -->
-      <div class="avatar-container">
-        <svg class="cyber-head-svg" viewBox="0 0 400 460" xmlns="http://www.w3.org/2000/svg">
+      <!-- Cute Mascot Head Face Guide -->
+      <div class="mascot-container">
+        <div class="mascot-aura"></div>
+        <svg class="mascot-svg" id="mascot-head" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <radialGradient id="eyeGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#00f0ff" stop-opacity="1" />
-              <stop offset="60%" stop-color="#0099ff" stop-opacity="0.8" />
-              <stop offset="100%" stop-color="#7000ff" stop-opacity="0" />
+            <radialGradient id="mascotFaceGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#0f172a" />
+              <stop offset="75%" stop-color="#1e293b" />
+              <stop offset="100%" stop-color="#00f0ff" stop-opacity="0.3" />
             </radialGradient>
-            <linearGradient id="faceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#1e293b" />
-              <stop offset="50%" stop-color="#0f172a" />
-              <stop offset="100%" stop-color="#050711" />
-            </linearGradient>
-            <linearGradient id="cyberLine" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#00f0ff" />
-              <stop offset="100%" stop-color="#ff007f" />
-            </linearGradient>
+            <radialGradient id="mascotEyeGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffffff" />
+              <stop offset="60%" stop-color="#00f0ff" />
+              <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0" />
+            </radialGradient>
+            <filter id="mascotSoftGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="8" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+            <filter id="mascotGlowFilter" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
           </defs>
 
-          <!-- Cyber Head Outer Contour Group -->
-          <g id="avatar-head">
-            <!-- Cybernetic Neck & Base -->
-            <path d="M 140 370 L 140 440 L 260 440 L 260 370 Z" fill="url(#faceGrad)" stroke="#00f0ff" stroke-width="1.5" opacity="0.8" />
-            <line x1="160" y1="390" x2="240" y2="390" stroke="#00f0ff" stroke-width="2" opacity="0.6" />
-            <line x1="170" y1="410" x2="230" y2="410" stroke="#ff007f" stroke-width="2" opacity="0.6" />
+          <!-- Round Face Contour -->
+          <circle cx="200" cy="200" r="130" fill="url(#mascotFaceGrad)" stroke="#00f0ff" stroke-width="4.5" filter="url(#mascotSoftGlow)" />
+          
+          <!-- Cute glowing blush on cheeks -->
+          <circle cx="110" cy="235" r="16" fill="#ff007f" opacity="0.35" filter="url(#mascotSoftGlow)" />
+          <circle cx="290" cy="235" r="16" fill="#ff007f" opacity="0.35" filter="url(#mascotSoftGlow)" />
 
-            <!-- Face Contour -->
-            <path d="M 110 140 C 110 50, 290 50, 290 140 C 290 260, 250 360, 200 370 C 150 360, 110 260, 110 140 Z" 
-                  fill="url(#faceGrad)" stroke="#00f0ff" stroke-width="2.5" />
+          <!-- Smiling friendly mouth -->
+          <path d="M 185 240 Q 200 256 215 240" fill="none" stroke="#00f0ff" stroke-width="3.5" stroke-linecap="round" />
 
-            <!-- Futuristic Holographic Forehead Markings -->
-            <path d="M 170 90 L 230 90 L 200 120 Z" fill="none" stroke="url(#cyberLine)" stroke-width="2" />
-            <circle cx="200" cy="100" r="4" fill="#00f0ff" />
-
-            <!-- Cyber Ear Implants -->
-            <rect x="90" y="160" width="20" height="50" rx="8" fill="#0f172a" stroke="#00f0ff" stroke-width="2" />
-            <rect x="290" y="160" width="20" height="50" rx="8" fill="#0f172a" stroke="#00f0ff" stroke-width="2" />
-            <circle cx="100" cy="185" r="5" fill="#ff007f" />
-            <circle cx="300" cy="185" r="5" fill="#ff007f" />
-
-            <!-- Nose Bridge Line -->
-            <path d="M 200 160 L 195 240 L 205 240" fill="none" stroke="rgba(0, 240, 255, 0.4)" stroke-width="2" />
-
-            <!-- Cyber Lips / Mouth -->
-            <path d="M 170 290 Q 200 305 230 290" fill="none" stroke="#00f0ff" stroke-width="2" opacity="0.8" />
-
-            <!-- LEFT EYE SOCKET & BULB -->
-            <g id="left-eye-socket" transform="translate(150, 180)">
-              <ellipse cx="0" cy="0" rx="28" ry="18" fill="#090d1f" stroke="#00f0ff" stroke-width="2" />
-              <g id="left-pupil">
-                <circle cx="0" cy="0" r="14" fill="url(#eyeGlow)" />
-                <circle cx="0" cy="0" r="7" fill="#030712" />
-                <circle cx="-3" cy="-4" r="3" fill="#ffffff" />
-              </g>
-              <ellipse class="eye-lid" cx="0" cy="0" rx="30" ry="20" fill="#0f172a" />
+          <!-- Left Eye Socket -->
+          <circle cx="130" cy="180" r="34" fill="#090d1f" stroke="#00f0ff" stroke-width="2.5" />
+          
+          <!-- Left Eye Group with blinking physics -->
+          <g class="mascot-eyelid" style="transform-origin: 130px 180px;">
+            <circle cx="130" cy="180" r="24" fill="url(#mascotEyeGlow)" filter="url(#mascotGlowFilter)" />
+            <!-- Large glowing white eyes with pupil inside -->
+            <g id="mascot-left-pupil">
+              <circle cx="130" cy="180" r="14" fill="#ffffff" />
+              <circle cx="127" cy="177" r="4.5" fill="#00f0ff" />
+              <circle cx="132" cy="182" r="2.5" fill="#8b5cf6" />
             </g>
+          </g>
 
-            <!-- RIGHT EYE SOCKET & BULB -->
-            <g id="right-eye-socket" transform="translate(250, 180)">
-              <ellipse cx="0" cy="0" rx="28" ry="18" fill="#090d1f" stroke="#00f0ff" stroke-width="2" />
-              <g id="right-pupil">
-                <circle cx="0" cy="0" r="14" fill="url(#eyeGlow)" />
-                <circle cx="0" cy="0" r="7" fill="#030712" />
-                <circle cx="-3" cy="-4" r="3" fill="#ffffff" />
-              </g>
-              <ellipse class="eye-lid" cx="0" cy="0" rx="30" ry="20" fill="#0f172a" />
+          <!-- Right Eye Socket -->
+          <circle cx="270" cy="180" r="34" fill="#090d1f" stroke="#00f0ff" stroke-width="2.5" />
+          
+          <!-- Right Eye Group with blinking physics -->
+          <g class="mascot-eyelid" style="transform-origin: 270px 180px;">
+            <circle cx="270" cy="180" r="24" fill="url(#mascotEyeGlow)" filter="url(#mascotGlowFilter)" />
+            <!-- Large glowing white eyes with pupil inside -->
+            <g id="mascot-right-pupil">
+              <circle cx="270" cy="180" r="14" fill="#ffffff" />
+              <circle cx="267" cy="177" r="4.5" fill="#00f0ff" />
+              <circle cx="272" cy="182" r="2.5" fill="#8b5cf6" />
             </g>
-
-            <!-- Eyebrow Accents -->
-            <path d="M 125 152 Q 150 142 175 155" fill="none" stroke="#00f0ff" stroke-width="3" stroke-linecap="round" />
-            <path d="M 225 155 Q 250 142 275 152" fill="none" stroke="#00f0ff" stroke-width="3" stroke-linecap="round" />
           </g>
         </svg>
       </div>
