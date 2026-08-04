@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Student Dashboard | EduPulse{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 10rem;">
+  <div class="container">
+    <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
+      <h2 class="section-title">Welcome back, <span class="gradient-text">{{ user.username }}</span></h2>
+      <p class="section-description">Here is your current privacy status and learning progress.</p>
+    </div>
+
+    <div class="stats-grid" style="margin-bottom: 3rem;">
+      <div class="stat-card">
+        <div class="stat-number">{{ profile.privacy_score }}</div>
+        <div class="stat-label">Privacy Score</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color: var(--accent-emerald);">{{ profile.footprint_risk }}</div>
+        <div class="stat-label">Footprint Risk</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">{{ attempts.count }}</div>
+        <div class="stat-label">Quizzes Completed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">{{ badges.count }}</div>
+        <div class="stat-label">Badges Earned</div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+      <div class="modal-card" style="position: static; transform: none; max-width: 100%;">
+        <h3 style="font-size: 1.4rem; margin-bottom: 1.5rem; color: var(--text-bright);">Recent Quiz Activity</h3>
+        {% for attempt in attempts %}
+          <div style="padding: 1rem; border-radius: 8px; background: rgba(255, 255, 255, 0.03); margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <h4 style="color: var(--text-bright);">{{ attempt.quiz.title }}</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted);">{{ attempt.completed_at|date:"M d, Y" }}</p>
+            </div>
+            <span style="font-weight: 700; color: var(--primary-cyan);">+{{ attempt.score }} pts</span>
+          </div>
+        {% empty %}
+          <p style="color: var(--text-muted);">No quiz activity yet. Take a quiz to earn points!</p>
+        {% endfor %}
+      </div>
+
+      <div class="modal-card" style="position: static; transform: none; max-width: 100%;">
+        <h3 style="font-size: 1.4rem; margin-bottom: 1.5rem; color: var(--text-bright);">Quick Links</h3>
+        <a href="{% url 'quiz:index' %}" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">Take New Quiz</a>
+        <a href="{% url 'journey:index' %}" class="btn btn-secondary" style="width: 100%; margin-bottom: 1rem;">Learning Journey</a>
+        <a href="{% url 'accounts:profile' %}" class="btn btn-secondary" style="width: 100%;">Edit Profile</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

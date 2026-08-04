@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Digital Safety Blog | EduPulse{% endblock %}
+
+{% block content %}
+<section class="features-section" style="padding-top: 10rem;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag"><i class="fa-solid fa-newspaper"></i> Educational Articles</div>
+      <h2 class="section-title">Digital Safety & <span class="gradient-text">Privacy Tips</span></h2>
+      <p class="section-description">Articles written by cybersecurity researchers and privacy experts.</p>
+    </div>
+
+    <div class="features-grid" style="grid-template-columns: repeat(3, 1fr);">
+      {% for article in articles %}
+        <div class="tilt-card">
+          <div class="feature-icon"><i class="fa-solid fa-book-open"></i></div>
+          <span style="font-size: 0.8rem; color: var(--primary-cyan); font-weight: 700;">{{ article.category.name }}</span>
+          <h3 style="margin: 0.5rem 0;">{{ article.title }}</h3>
+          <p>{{ article.summary|truncatewords:20 }}</p>
+          <a href="{% url 'blog:detail' article.slug %}" class="btn btn-secondary" style="margin-top: 1.5rem;">Read Guide</a>
+        </div>
+      {% empty %}
+        <div class="tilt-card">
+          <div class="feature-icon"><i class="fa-solid fa-lock"></i></div>
+          <span style="font-size: 0.8rem; color: var(--primary-cyan); font-weight: 700;">Cyber Awareness</span>
+          <h3 style="margin: 0.5rem 0;">10 Ways to Minimize Passive Data Leaks</h3>
+          <p>Learn how to configure browser privacy headers and block third-party trackers.</p>
+        </div>
+        <div class="tilt-card">
+          <div class="feature-icon"><i class="fa-solid fa-key"></i></div>
+          <span style="font-size: 0.8rem; color: var(--primary-cyan); font-weight: 700;">Authentication</span>
+          <h3 style="margin: 0.5rem 0;">Why Passkeys replace Passwords</h3>
+          <p>Understanding public key cryptography for modern authentication.</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

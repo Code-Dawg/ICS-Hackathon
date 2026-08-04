@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Privacy Quizzes | EduPulse{% endblock %}
+
+{% block content %}
+<section class="features-section" style="padding-top: 10rem;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag"><i class="fa-solid fa-gamepad"></i> Interactive Quizzes</div>
+      <h2 class="section-title">Test Your <span class="gradient-text">Privacy IQ</span></h2>
+      <p class="section-description">Complete real-world cybersecurity challenges to earn points and badges.</p>
+    </div>
+
+    <div class="features-grid">
+      {% for quiz in quizzes %}
+        <div class="tilt-card">
+          <div class="feature-icon"><i class="fa-solid fa-circle-question"></i></div>
+          <h3>{{ quiz.title }}</h3>
+          <p>{{ quiz.description }}</p>
+          <a href="{% url 'quiz:detail' quiz.id %}" class="btn btn-primary" style="margin-top: 1.5rem;">Take Quiz</a>
+        </div>
+      {% empty %}
+        <div class="tilt-card">
+          <div class="feature-icon"><i class="fa-solid fa-shield"></i></div>
+          <h3>Digital Footprint Basics</h3>
+          <p>Learn how metadata tracking works across web servers.</p>
+          <button class="btn btn-primary open-login" style="margin-top: 1.5rem;">Log In to Take Quiz</button>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

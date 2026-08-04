@@ -1,0 +1,34 @@
+/* ==========================================================================
+   SPACE CANVAS & NEBULA BACKGROUND STYLES
+   ========================================================================== */
+
+#space-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.cta-box {
+  background: radial-gradient(circle at center, rgba(112, 0, 255, 0.25) 0%, rgba(10, 14, 33, 0.85) 100%);
+  border: 1px solid var(--glass-border-hover);
+  border-radius: var(--border-radius-lg);
+  padding: 5rem 3rem;
+  text-align: center;
+  backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 50px rgba(0, 240, 255, 0.2);
+}
+
+.cta-box::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: var(--grad-primary);
+  border-radius: var(--border-radius-lg);
+  z-index: -1;
+  opacity: 0.3;
+  filter: blur(15px);
+}

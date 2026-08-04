@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}EduPulse | Futuristic Digital Footprint & Learning Platform{% endblock %}
+
+{% block content %}
+<!-- Hero Section with Eye-Tracking Cyber Avatar -->
+<section class="hero-section" id="home">
+  <div class="container hero-grid">
+    
+    <!-- Hero Text Content -->
+    <div class="hero-content reveal-on-scroll">
+      <div class="section-tag">
+        <i class="fa-solid fa-user-shield"></i> Future of Digital Identity
+      </div>
+      <h1 class="hero-title">
+        Understand Your <span class="gradient-text">Digital Footprint</span> Before It Defines You.
+      </h1>
+      <p class="hero-subtitle">
+        Every search, click, post, and login shapes your permanent digital shadow. Master digital sovereignty, privacy engineering, and cyber awareness through interactive futuristic simulations.
+      </p>
+      <div class="hero-buttons">
+        <button class="btn btn-glow open-register">
+          <i class="fa-solid fa-rocket"></i> Start Journey
+        </button>
+        <a href="{% url 'digitalfootprints:index' %}" class="btn btn-secondary">
+          <i class="fa-solid fa-circle-info"></i> Learn More
+        </a>
+      </div>
+    </div>
+
+    <!-- Cybernetic Human Illustration with Eye Physics -->
+    <div class="hero-avatar-wrapper reveal-on-scroll">
+      
+      <!-- Floating Glass Badges -->
+      <div class="floating-card floating-card-1">
+        <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="card-meta">
+          <h4>Digital Identity</h4>
+          <p class="neon-text">Encrypted & Active</p>
+        </div>
+      </div>
+
+      <div class="floating-card floating-card-2">
+        <div class="card-icon"><i class="fa-solid fa-chart-pie"></i></div>
+        <div class="card-meta">
+          <h4>Privacy Score</h4>
+          <p>94 / 100 (A+ Grade)</p>
+        </div>
+      </div>
+
+      <div class="floating-card floating-card-3">
+        <div class="card-icon"><i class="fa-solid fa-eye"></i></div>
+        <div class="card-meta">
+          <h4>Digital Shadow</h4>
+          <p>Real-time Monitored</p>
+        </div>
+      </div>
+
+      <div class="floating-card floating-card-4">
+        <div class="card-icon"><i class="fa-solid fa-lock"></i></div>
+        <div class="card-meta">
+          <h4>Footprint Risk</h4>
+          <p style="color: var(--accent-emerald);">Low / Secure</p>
+        </div>
+      </div>
+
+      <!-- SVG Digital Cyber Human Avatar -->
+      <div class="avatar-container">
+        <svg class="cyber-head-svg" viewBox="0 0 400 460" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="eyeGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#00f0ff" stop-opacity="1" />
+              <stop offset="60%" stop-color="#0099ff" stop-opacity="0.8" />
+              <stop offset="100%" stop-color="#7000ff" stop-opacity="0" />
+            </radialGradient>
+            <linearGradient id="faceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1e293b" />
+              <stop offset="50%" stop-color="#0f172a" />
+              <stop offset="100%" stop-color="#050711" />
+            </linearGradient>
+            <linearGradient id="cyberLine" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#00f0ff" />
+              <stop offset="100%" stop-color="#ff007f" />
+            </linearGradient>
+          </defs>
+
+          <!-- Cyber Head Outer Contour Group -->
+          <g id="avatar-head">
+            <!-- Cybernetic Neck & Base -->
+            <path d="M 140 370 L 140 440 L 260 440 L 260 370 Z" fill="url(#faceGrad)" stroke="#00f0ff" stroke-width="1.5" opacity="0.8" />
+            <line x1="160" y1="390" x2="240" y2="390" stroke="#00f0ff" stroke-width="2" opacity="0.6" />
+            <line x1="170" y1="410" x2="230" y2="410" stroke="#ff007f" stroke-width="2" opacity="0.6" />
+
+            <!-- Face Contour -->
+            <path d="M 110 140 C 110 50, 290 50, 290 140 C 290 260, 250 360, 200 370 C 150 360, 110 260, 110 140 Z" 
+                  fill="url(#faceGrad)" stroke="#00f0ff" stroke-width="2.5" />
+
+            <!-- Futuristic Holographic Forehead Markings -->
+            <path d="M 170 90 L 230 90 L 200 120 Z" fill="none" stroke="url(#cyberLine)" stroke-width="2" />
+            <circle cx="200" cy="100" r="4" fill="#00f0ff" />
+
+            <!-- Cyber Ear Implants -->
+            <rect x="90" y="160" width="20" height="50" rx="8" fill="#0f172a" stroke="#00f0ff" stroke-width="2" />
+            <rect x="290" y="160" width="20" height="50" rx="8" fill="#0f172a" stroke="#00f0ff" stroke-width="2" />
+            <circle cx="100" cy="185" r="5" fill="#ff007f" />
+            <circle cx="300" cy="185" r="5" fill="#ff007f" />
+
+            <!-- Nose Bridge Line -->
+            <path d="M 200 160 L 195 240 L 205 240" fill="none" stroke="rgba(0, 240, 255, 0.4)" stroke-width="2" />
+
+            <!-- Cyber Lips / Mouth -->
+            <path d="M 170 290 Q 200 305 230 290" fill="none" stroke="#00f0ff" stroke-width="2" opacity="0.8" />
+
+            <!-- LEFT EYE SOCKET & BULB -->
+            <g id="left-eye-socket" transform="translate(150, 180)">
+              <ellipse cx="0" cy="0" rx="28" ry="18" fill="#090d1f" stroke="#00f0ff" stroke-width="2" />
+              <g id="left-pupil">
+                <circle cx="0" cy="0" r="14" fill="url(#eyeGlow)" />
+                <circle cx="0" cy="0" r="7" fill="#030712" />
+                <circle cx="-3" cy="-4" r="3" fill="#ffffff" />
+              </g>
+              <ellipse class="eye-lid" cx="0" cy="0" rx="30" ry="20" fill="#0f172a" />
+            </g>
+
+            <!-- RIGHT EYE SOCKET & BULB -->
+            <g id="right-eye-socket" transform="translate(250, 180)">
+              <ellipse cx="0" cy="0" rx="28" ry="18" fill="#090d1f" stroke="#00f0ff" stroke-width="2" />
+              <g id="right-pupil">
+                <circle cx="0" cy="0" r="14" fill="url(#eyeGlow)" />
+                <circle cx="0" cy="0" r="7" fill="#030712" />
+                <circle cx="-3" cy="-4" r="3" fill="#ffffff" />
+              </g>
+              <ellipse class="eye-lid" cx="0" cy="0" rx="30" ry="20" fill="#0f172a" />
+            </g>
+
+            <!-- Eyebrow Accents -->
+            <path d="M 125 152 Q 150 142 175 155" fill="none" stroke="#00f0ff" stroke-width="3" stroke-linecap="round" />
+            <path d="M 225 155 Q 250 142 275 152" fill="none" stroke="#00f0ff" stroke-width="3" stroke-linecap="round" />
+          </g>
+        </svg>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- Statistics Counter Section -->
+<section class="stats-section" id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card reveal-on-scroll">
+        <div class="stat-number" data-count="100000" data-suffix="+">0</div>
+        <div class="stat-label">Active Students</div>
+      </div>
+      <div class="stat-card reveal-on-scroll">
+        <div class="stat-number" data-count="500" data-suffix="+">0</div>
+        <div class="stat-label">Learning Modules</div>
+      </div>
+      <div class="stat-card reveal-on-scroll">
+        <div class="stat-number" data-count="2000000" data-suffix="+">0</div>
+        <div class="stat-label">Footprints Analyzed</div>
+      </div>
+      <div class="stat-card reveal-on-scroll">
+        <div class="stat-number" data-count="98" data-suffix="%">0</div>
+        <div class="stat-label">Success Rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Digital Footprint Teaser -->
+<section class="footprint-section" id="footprints">
+  <div class="container">
+    <div class="section-header reveal-on-scroll">
+      <div class="section-tag"><i class="fa-solid fa-fingerprint"></i> Footprint Matrix</div>
+      <h2 class="section-title">The Four Types of <span class="gradient-text">Digital Shadows</span></h2>
+      <p class="section-description">Understand how passive logs, active posts, and privacy choices build your online footprint.</p>
+    </div>
+
+    <div class="footprint-grid">
+      <div class="footprint-card positive reveal-on-scroll">
+        <div>
+          <div class="footprint-header">
+            <div class="footprint-icon-wrap"><i class="fa-solid fa-award"></i></div>
+            <h3 class="footprint-title">Positive Footprint</h3>
+          </div>
+          <p class="footprint-desc">Verified credentials, open-source code contributions, public portfolios, and community leadership.</p>
+        </div>
+        <div class="footprint-tags"><span class="tag">Career Booster</span><span class="tag">Verified Badges</span></div>
+      </div>
+
+      <div class="footprint-card negative reveal-on-scroll">
+        <div>
+          <div class="footprint-header">
+            <div class="footprint-icon-wrap" style="color: var(--accent-magenta); background: rgba(255, 0, 127, 0.1);"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <h3 class="footprint-title">Negative Footprint</h3>
+          </div>
+          <p class="footprint-desc">Password breaches, overshared locations, compromised credentials, and unencrypted files.</p>
+        </div>
+        <div class="footprint-tags"><span class="tag">Data Breach</span><span class="tag">Reputation Risk</span></div>
+      </div>
+
+      <div class="footprint-card passive reveal-on-scroll">
+        <div>
+          <div class="footprint-header">
+            <div class="footprint-icon-wrap" style="color: var(--primary-cyan); background: rgba(0, 240, 255, 0.1);"><i class="fa-solid fa-satellite-dish"></i></div>
+            <h3 class="footprint-title">Passive Footprint</h3>
+          </div>
+          <p class="footprint-desc">IP addresses, browser canvas fingerprints, wifi telemetry, and background server logs.</p>
+        </div>
+        <div class="footprint-tags"><span class="tag">IP Tracking</span><span class="tag">Telemetry</span></div>
+      </div>
+
+      <div class="footprint-card active-fp reveal-on-scroll">
+        <div>
+          <div class="footprint-header">
+            <div class="footprint-icon-wrap" style="color: var(--primary-purple); background: rgba(139, 92, 246, 0.1);"><i class="fa-solid fa-share-nodes"></i></div>
+            <h3 class="footprint-title">Active Footprint</h3>
+          </div>
+          <p class="footprint-desc">Social posts, comments, app signups, media uploads, and intentional communications.</p>
+        </div>
+        <div class="footprint-tags"><span class="tag">Social Posts</span><span class="tag">Account Trails</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section" id="cta">
+  <div class="container">
+    <div class="cta-box reveal-on-scroll">
+      <h2 class="cta-title">Ready to Master Your <span class="gradient-text">Digital Sovereignty</span>?</h2>
+      <p class="cta-subtitle">Start your journey today with interactive quizzes, privacy roadmaps, and verified credentials.</p>
+      <button class="btn btn-glow open-register" style="font-size: 1.15rem; padding: 1rem 2.5rem;">
+        <i class="fa-solid fa-user-plus"></i> Create Free Account
+      </button>
+    </div>
+  </div>
+</section>
+{% endblock %}

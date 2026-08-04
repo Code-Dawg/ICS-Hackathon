@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Frequently Asked Questions | EduPulse{% endblock %}
+
+{% block content %}
+<section class="faq-section" style="padding-top: 10rem;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag"><i class="fa-solid fa-circle-question"></i> Questions & Answers</div>
+      <h2 class="section-title">Frequently Asked <span class="gradient-text">Questions</span></h2>
+      <p class="section-description">Find clear answers regarding digital footprints, platform security, and course completion.</p>
+    </div>
+
+    <div class="faq-container">
+      {% for faq in faqs %}
+        <div class="faq-item {% if forloop.first %}active{% endif %}">
+          <div class="faq-header">
+            <h3 class="faq-title">{{ faq.question }}</h3>
+            <div class="faq-icon"><i class="fa-solid fa-chevron-down"></i></div>
+          </div>
+          <div class="faq-body">
+            <p class="faq-content">{{ faq.answer }}</p>
+          </div>
+        </div>
+      {% empty %}
+        <div class="faq-item active">
+          <div class="faq-header">
+            <h3 class="faq-title">What is a Digital Footprint?</h3>
+            <div class="faq-icon"><i class="fa-solid fa-chevron-down"></i></div>
+          </div>
+          <div class="faq-body">
+            <p class="faq-content">A digital footprint is the unique trail of data you create while using the internet.</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

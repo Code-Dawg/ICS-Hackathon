@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Contact Us & FAQ | EduPulse{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 10rem;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag"><i class="fa-solid fa-headset"></i> Support</div>
+      <h2 class="section-title">Get in Touch with <span class="gradient-text">EduPulse</span></h2>
+      <p class="section-description">Have questions about our platform or privacy courses? Send us a message.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 5rem;">
+      <div class="modal-card" style="position: static; transform: none; max-width: 100%;">
+        <h3 class="modal-title" style="font-size: 1.6rem;">Send Message</h3>
+        <p class="modal-subtitle">We reply within 24 hours.</p>
+
+        {% if messages %}
+          {% for message in messages %}
+            <div style="padding: 0.75rem; border-radius: 8px; background: rgba(16, 185, 129, 0.15); border: 1px solid var(--accent-emerald); margin-bottom: 1rem; color: #fff;">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        <form action="{% url 'contact:index' %}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            {{ form.name }}
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subject</label>
+            {{ form.subject }}
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            {{ form.message }}
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+        </form>
+      </div>
+
+      <div>
+        <h3 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 1.5rem;">Popular FAQ</h3>
+        <div class="faq-container">
+          {% for faq in faqs %}
+            <div class="faq-item {% if forloop.first %}active{% endif %}">
+              <div class="faq-header">
+                <h3 class="faq-title">{{ faq.question }}</h3>
+                <div class="faq-icon"><i class="fa-solid fa-chevron-down"></i></div>
+              </div>
+              <div class="faq-body">
+                <p class="faq-content">{{ faq.answer }}</p>
+              </div>
+            </div>
+          {% empty %}
+            <div class="faq-item active">
+              <div class="faq-header">
+                <h3 class="faq-title">What is a Digital Footprint?</h3>
+                <div class="faq-icon"><i class="fa-solid fa-chevron-down"></i></div>
+              </div>
+              <div class="faq-body">
+                <p class="faq-content">A digital footprint is the unique trail of data you create while using the internet.</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

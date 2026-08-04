@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Global Leaderboard | EduPulse{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 10rem;">
+  <div class="container" style="max-width: 900px;">
+    <div class="section-header">
+      <div class="section-tag"><i class="fa-solid fa-trophy"></i> Scoreboard</div>
+      <h2 class="section-title">Global Privacy <span class="gradient-text">Leaderboard</span></h2>
+      <p class="section-description">Top ranked students based on privacy score & challenge completions.</p>
+    </div>
+
+    <div class="modal-card" style="position: static; transform: none; max-width: 100%; padding: 2rem;">
+      <table style="width: 100%; border-collapse: collapse; text-align: left;">
+        <thead>
+          <tr style="border-bottom: 1px solid var(--glass-border); color: var(--text-muted);">
+            <th style="padding: 1rem;">Rank</th>
+            <th style="padding: 1rem;">User</th>
+            <th style="padding: 1rem;">Privacy Score</th>
+            <th style="padding: 1rem;">Risk Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for profile in profiles %}
+            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+              <td style="padding: 1rem; font-weight: 700; color: var(--primary-cyan);">#{{ forloop.counter }}</td>
+              <td style="padding: 1rem; font-weight: 600; color: var(--text-bright);">{{ profile.user.username }}</td>
+              <td style="padding: 1rem; font-weight: 700;">{{ profile.privacy_score }} / 100</td>
+              <td style="padding: 1rem; color: var(--accent-emerald);">{{ profile.footprint_risk }}</td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="4" style="padding: 2rem; text-align: center; color: var(--text-muted);">No student rankings yet. Be the first to join!</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock %}
