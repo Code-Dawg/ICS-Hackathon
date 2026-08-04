@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ SITE_NAME }} | {{ SITE_TAGLINE }}{% endblock %}</title>
+  <meta name="description" content="Master your digital identity, analyze online footprints, and learn privacy protection with EduPulse.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Modular Stylesheets -->
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+  <link rel="stylesheet" href="{% static 'css/hero.css' %}">
+  <link rel="stylesheet" href="{% static 'css/buttons.css' %}">
+  <link rel="stylesheet" href="{% static 'css/cards.css' %}">
+  <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+  <link rel="stylesheet" href="{% static 'css/modals.css' %}">
+  <link rel="stylesheet" href="{% static 'css/space.css' %}">
+  <link rel="stylesheet" href="{% static 'css/timeline.css' %}">
+  <link rel="stylesheet" href="{% static 'css/animations.css' %}">
+  <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+  
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+  <!-- Reusable Includes -->
+  {% include 'includes/_cursor.html' %}
+  {% include 'includes/_canvas.html' %}
+  {% include 'includes/_navbar.html' %}
+
+  <!-- Main Dynamic Body Content -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Reusable Footer & Modals -->
+  {% include 'includes/_footer.html' %}
+  {% include 'includes/_modals.html' %}
+
+  <!-- Floating Back To Top Button -->
+  <button class="back-to-top" aria-label="Back to Top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <!-- Modular JavaScript Scripts -->
+  <script src="{% static 'js/space-background.js' %}"></script>
+  <script src="{% static 'js/eye-tracking.js' %}"></script>
+  <script src="{% static 'js/cursor.js' %}"></script>
+  <script src="{% static 'js/navbar.js' %}"></script>
+  <script src="{% static 'js/modals.js' %}"></script>
+  <script src="{% static 'js/counter.js' %}"></script>
+  <script src="{% static 'js/tilt.js' %}"></script>
+  <script src="{% static 'js/carousel.js' %}"></script>
+  <script src="{% static 'js/accordion.js' %}"></script>
+  <script src="{% static 'js/scroll.js' %}"></script>
+  
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

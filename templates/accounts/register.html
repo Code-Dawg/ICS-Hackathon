@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Create Account | EduPulse{% endblock %}
+
+{% block content %}
+<section class="section" style="padding: 10rem 0 6rem 0;">
+  <div class="container" style="max-width: 480px;">
+    <div class="modal-card" style="position: static; transform: none;">
+      <h2 class="modal-title">Join <span class="gradient-text">EduPulse</span></h2>
+      <p class="modal-subtitle">Start your digital footprint learning journey</p>
+
+      {% if form.errors %}
+        <div style="padding: 0.75rem; border-radius: 8px; background: rgba(255, 0, 127, 0.15); border: 1px solid var(--accent-magenta); margin-bottom: 1rem; color: #fff;">
+          Please correct errors below.
+        </div>
+      {% endif %}
+
+      <form action="{% url 'accounts:register' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label class="form-label">Username</label>
+          {{ form.username }}
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          {{ form.email }}
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          {{ form.password1 }}
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Confirm Password</label>
+          {{ form.password2 }}
+        </div>
+
+        <button type="submit" class="btn btn-glow" style="width: 100%; padding: 0.9rem;">Create Free Account</button>
+      </form>
+      <p style="text-align: center; margin-top: 1.5rem; color: var(--text-muted);">
+        Already have an account? <a href="{% url 'accounts:login' %}" class="modal-switch-link">Log In</a>
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

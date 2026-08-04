@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Quiz Results | EduPulse{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 10rem;">
+  <div class="container" style="max-width: 600px; text-align: center;">
+    <div class="modal-card" style="position: static; transform: none; max-width: 100%;">
+      <div style="font-size: 4rem; color: var(--primary-cyan); margin-bottom: 1rem;"><i class="fa-solid fa-trophy"></i></div>
+      <h2 class="modal-title">Quiz <span class="gradient-text">Completed</span></h2>
+      <p class="modal-subtitle">You scored <strong>{{ score }}</strong> points on {{ quiz.title }}!</p>
+      
+      <a href="{% url 'dashboard:index' %}" class="btn btn-primary" style="margin-top: 1.5rem;">Go to Dashboard</a>
+      <a href="{% url 'quiz:index' %}" class="btn btn-secondary" style="margin-top: 1.5rem;">Take Another Quiz</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

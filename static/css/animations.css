@@ -1,0 +1,33 @@
+/* ==========================================================================
+   KEYFRAME ANIMATIONS & SCROLL REVEALS
+   ========================================================================== */
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes floatCard {
+  0% { transform: translateY(0px) rotate(0deg); }
+  100% { transform: translateY(-18px) rotate(2deg); }
+}
+
+@keyframes avatarBreath {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 25px rgba(112, 0, 255, 0.5); }
+  100% { box-shadow: 0 0 45px rgba(0, 240, 255, 0.8); }
+}
+
+@keyframes ripple {
+  to { transform: scale(4); opacity: 0; }
+}

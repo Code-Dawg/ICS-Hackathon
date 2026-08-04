@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Platform Statistics | EduPulse{% endblock %}
+
+{% block content %}
+<section class="stats-section" style="padding-top: 10rem;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag"><i class="fa-solid fa-chart-bar"></i> Analytics</div>
+      <h2 class="section-title">Live Platform <span class="gradient-text">Statistics</span></h2>
+      <p class="section-description">Real-time metrics on student participation and footprint analyses.</p>
+    </div>
+
+    <div class="stats-grid">
+      {% for stat in stats %}
+        <div class="stat-card">
+          <div class="stat-number" data-count="{{ stat.value_number }}" data-suffix="{{ stat.suffix }}">0</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      {% empty %}
+        <div class="stat-card">
+          <div class="stat-number" data-count="100000" data-suffix="+">0</div>
+          <div class="stat-label">Active Students</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-count="500" data-suffix="+">0</div>
+          <div class="stat-label">Learning Modules</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-count="2000000" data-suffix="+">0</div>
+          <div class="stat-label">Footprints Analyzed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-count="98" data-suffix="%">0</div>
+          <div class="stat-label">Success Rate</div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Learning Journey | EduPulse{% endblock %}
+
+{% block content %}
+<section class="timeline-section" style="padding-top: 10rem;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag"><i class="fa-solid fa-route"></i> Roadmap</div>
+      <h2 class="section-title">The Digital <span class="gradient-text">Learning Journey</span></h2>
+      <p class="section-description">Follow step-by-step milestones to secure your identity online.</p>
+    </div>
+
+    <div class="timeline-wrapper">
+      <div class="timeline-bar"><div class="timeline-progress"></div></div>
+
+      {% for step in steps %}
+        <div class="timeline-item active">
+          <div class="timeline-node"></div>
+          <div class="timeline-card">
+            <div class="timeline-step">Step 0{{ step.step_number }}</div>
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.description }}</p>
+          </div>
+        </div>
+      {% empty %}
+        <div class="timeline-item active">
+          <div class="timeline-node"></div>
+          <div class="timeline-card">
+            <div class="timeline-step">Step 01</div>
+            <h3>Account Initialization</h3>
+            <p>You establish your digital identity with cryptographic credentials.</p>
+          </div>
+        </div>
+        <div class="timeline-item active">
+          <div class="timeline-node"></div>
+          <div class="timeline-card">
+            <div class="timeline-step">Step 02</div>
+            <h3>Privacy Engineering</h3>
+            <p>Configuring zero-knowledge encryption, 2FA, and consent controls.</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

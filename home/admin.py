@@ -1,3 +1,2 @@
 from django.contrib import admin
-
-# Register your models here.
+# Home app has no database models; templates render directly.

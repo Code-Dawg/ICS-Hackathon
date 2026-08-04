@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'quiz.apps.QuizConfig',
     'leaderboard.apps.LeaderboardConfig',
     'dashboard.apps.DashboardConfig',
-    'statistics.apps.StatisticsConfig',
+    'stats_app.apps.StatsAppConfig',
     'blog.apps.BlogConfig',
     'contact.apps.ContactConfig',
 ]

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Sign In | EduPulse{% endblock %}
+
+{% block content %}
+<section class="section" style="padding: 10rem 0 6rem 0;">
+  <div class="container" style="max-width: 480px;">
+    <div class="modal-card" style="position: static; transform: none;">
+      <h2 class="modal-title">Welcome <span class="gradient-text">Back</span></h2>
+      <p class="modal-subtitle">Sign in to your EduPulse dashboard</p>
+
+      {% if messages %}
+        {% for message in messages %}
+          <div style="padding: 0.75rem; border-radius: 8px; background: rgba(255, 0, 127, 0.15); border: 1px solid var(--accent-magenta); margin-bottom: 1rem; color: #fff;">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <form action="{% url 'accounts:login' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label class="form-label">Username</label>
+          <input type="text" name="username" class="form-input" placeholder="alexmercer" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" name="password" class="form-input" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.9rem;">Sign In</button>
+      </form>
+      <p style="text-align: center; margin-top: 1.5rem; color: var(--text-muted);">
+        Don't have an account? <a href="{% url 'accounts:register' %}" class="modal-switch-link">Register</a>
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

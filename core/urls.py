@@ -21,7 +21,7 @@ urlpatterns = [
     path('quiz/', include('quiz.urls')),
     path('leaderboard/', include('leaderboard.urls')),
     path('dashboard/', include('dashboard.urls')),
-    path('statistics/', include('statistics.urls')),
+    path('statistics/', include('stats_app.urls')),
     path('blog/', include('blog.urls')),
     path('contact/', include('contact.urls')),
 ]

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Digital Footprint Matrix | EduPulse{% endblock %}
+
+{% block content %}
+<section class="footprint-section" style="padding-top: 10rem;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag"><i class="fa-solid fa-fingerprint"></i> Footprint Matrix</div>
+      <h2 class="section-title">Master Your <span class="gradient-text">Digital Shadow</span></h2>
+      <p class="section-description">Deep dive into positive, negative, passive, and active footprints with actionable privacy strategies.</p>
+    </div>
+
+    <div class="footprint-grid">
+      {% for fp in footprints %}
+        <div class="footprint-card {{ fp.category }}">
+          <div>
+            <div class="footprint-header">
+              <div class="footprint-icon-wrap"><i class="{{ fp.icon_class }}"></i></div>
+              <h3 class="footprint-title">{{ fp.title }}</h3>
+            </div>
+            <p class="footprint-desc">{{ fp.description }}</p>
+          </div>
+          <div class="footprint-tags">
+            <span class="tag">{{ fp.tags }}</span>
+          </div>
+        </div>
+      {% empty %}
+        <div class="footprint-card positive">
+          <div class="footprint-header">
+            <div class="footprint-icon-wrap"><i class="fa-solid fa-award"></i></div>
+            <h3 class="footprint-title">Positive Footprint</h3>
+          </div>
+          <p class="footprint-desc">Verified credentials, open-source code contributions, public portfolios, and community leadership.</p>
+          <div class="footprint-tags"><span class="tag">Career Boosting</span></div>
+        </div>
+        <div class="footprint-card negative">
+          <div class="footprint-header">
+            <div class="footprint-icon-wrap" style="color: var(--accent-magenta);"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <h3 class="footprint-title">Negative Footprint</h3>
+          </div>
+          <p class="footprint-desc">Password leaks, overshared locations, and unencrypted credentials exposed online.</p>
+          <div class="footprint-tags"><span class="tag">Reputation Risk</span></div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
