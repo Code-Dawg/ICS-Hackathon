@@ -6,6 +6,7 @@
   .hero-grid { grid-template-columns: 1fr; text-align: center; }
   .hero-subtitle { margin-left: auto; margin-right: auto; }
   .hero-buttons { justify-content: center; }
+  .hero-proof { justify-content: center; }
   .features-grid { grid-template-columns: repeat(2, 1fr); }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: repeat(2, 1fr); }

@@ -94,6 +94,22 @@ body {
   transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
+::selection { background: rgba(0, 240, 255, 0.28); color: var(--text-bright); }
+
+:focus-visible {
+  outline: 3px solid var(--primary-cyan);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: var(--bg-deep); }

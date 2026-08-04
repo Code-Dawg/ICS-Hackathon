@@ -11,21 +11,32 @@
     <!-- Hero Text Content -->
     <div class="hero-content reveal-on-scroll">
       <div class="section-tag">
-        <i class="fa-solid fa-user-shield"></i> Future of Digital Identity
+        <i class="fa-solid fa-user-shield"></i> Practical digital safety learning
       </div>
-      <h1 class="hero-title" style="font-size: 2.8rem; line-height: 1.2;">
-        Empowering global learners with futuristic education in <span class="gradient-text">digital sovereignty</span>, privacy protection, and cybersecurity.
+      <h1 class="hero-title">
+        Build safer habits for your <span class="gradient-text">digital life.</span>
       </h1>
       <p class="hero-subtitle">
-        Every search, click, post, and login shapes your permanent digital shadow. Master digital sovereignty, privacy engineering, and cyber awareness through interactive futuristic simulations.
+        Learn to protect your privacy, spot scams, and make confident online decisions through short, interactive challenges.
       </p>
       <div class="hero-buttons">
-        <button class="btn btn-glow open-register">
-          <i class="fa-solid fa-rocket"></i> Start Journey
-        </button>
-        <a href="{% url 'digitalfootprints:index' %}" class="btn btn-secondary">
-          <i class="fa-solid fa-circle-info"></i> Learn More
+        {% if user.is_authenticated %}
+        <a href="{% url 'journey:index' %}" class="btn btn-glow">
+          <i class="fa-solid fa-route"></i> Continue Learning
         </a>
+        {% else %}
+        <button class="btn btn-glow open-register">
+          <i class="fa-solid fa-rocket"></i> Start Learning Free
+        </button>
+        {% endif %}
+        <a href="{% url 'digitalfootprints:index' %}" class="btn btn-secondary">
+          <i class="fa-solid fa-circle-info"></i> Explore the Basics
+        </a>
+      </div>
+      <div class="hero-proof" aria-label="Learning benefits">
+        <span><i class="fa-solid fa-check"></i> Learn at your pace</span>
+        <span><i class="fa-solid fa-check"></i> No prior experience needed</span>
+        <span><i class="fa-solid fa-check"></i> Track your progress</span>
       </div>
     </div>
 
@@ -143,20 +154,20 @@
   <div class="container">
     <div class="stats-grid">
       <div class="stat-card reveal-on-scroll">
-        <div class="stat-number" data-count="100000" data-suffix="+">0</div>
-        <div class="stat-label">Active Students</div>
+        <div class="stat-number" data-count="20" data-suffix="">0</div>
+        <div class="stat-label">Guided Levels</div>
       </div>
       <div class="stat-card reveal-on-scroll">
-        <div class="stat-number" data-count="500" data-suffix="+">0</div>
-        <div class="stat-label">Learning Modules</div>
+        <div class="stat-number" data-count="100" data-suffix="+">0</div>
+        <div class="stat-label">Practice Scenarios</div>
       </div>
       <div class="stat-card reveal-on-scroll">
-        <div class="stat-number" data-count="2000000" data-suffix="+">0</div>
-        <div class="stat-label">Footprints Analyzed</div>
+        <div class="stat-number" data-count="4" data-suffix="">0</div>
+        <div class="stat-label">Safety Scores Tracked</div>
       </div>
       <div class="stat-card reveal-on-scroll">
-        <div class="stat-number" data-count="98" data-suffix="%">0</div>
-        <div class="stat-label">Success Rate</div>
+        <div class="stat-number" data-count="1" data-suffix="">0</div>
+        <div class="stat-label">Personal Progress Report</div>
       </div>
     </div>
   </div>
