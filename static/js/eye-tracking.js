@@ -35,14 +35,14 @@ class CuteMascotAvatar {
       const dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
       const angle = Math.atan2(deltaY, deltaX);
 
-      // Max pupil movement radius for cute mascot eyes
+
       const maxRadius = 14;
       const clampedDist = Math.min(dist * 0.06, maxRadius);
 
       this.targetX = Math.cos(angle) * clampedDist;
       this.targetY = Math.sin(angle) * clampedDist;
 
-      // Slight head tilt (max 6 deg)
+
       this.headTiltX = Math.max(-6, Math.min(6, (e.clientX - window.innerWidth / 2) * 0.012));
       this.headTiltY = Math.max(-5, Math.min(5, (e.clientY - window.innerHeight / 2) * 0.012));
     });
