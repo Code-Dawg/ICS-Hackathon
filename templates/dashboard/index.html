@@ -1,55 +1,92 @@
 {% extends 'base.html' %}
-{% block title %}Student Dashboard | Footprint Quest{% endblock %}
+{% load static %}
+
+{% block title %}Player Dashboard | Footprint Quest{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
 
 {% block content %}
-<section class="section" style="padding-top: 10rem;">
-  <div class="container">
-    <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
-      <h2 class="section-title">Welcome back, <span class="gradient-text">{{ user.username }}</span></h2>
-      <p class="section-description">Here is your current privacy status and learning progress.</p>
-    </div>
+<section class="dashboard-page">
+  <div class="container dashboard-container">
+    <section class="dashboard-metrics" aria-label="Your progress">
+      <article class="metric-card metric-xp">
+        <span class="metric-icon"><i class="fa-solid fa-bolt"></i></span>
+        <div><strong>{{ profile.xp }}</strong><span>Total XP</span></div>
+        <small>Keep playing to level up</small>
+      </article>
+      <article class="metric-card metric-progress">
+        <span class="metric-icon"><i class="fa-solid fa-route"></i></span>
+        <div><strong>{{ progress_percentage }}%</strong><span>Journey complete</span></div>
+        <div class="metric-progress-bar"><span style="width: {{ progress_percentage }}%"></span></div>
+      </article>
+      <article class="metric-card metric-score">
+        <span class="metric-icon"><i class="fa-solid fa-user-shield"></i></span>
+        <div><strong>{{ profile.privacy_score }}</strong><span>Privacy score</span></div>
+        <small>{{ profile.footprint_risk }} footprint risk</small>
+      </article>
+      <article class="metric-card metric-badges">
+        <span class="metric-icon"><i class="fa-solid fa-medal"></i></span>
+        <div><strong>{{ badges.count }}</strong><span>Badges earned</span></div>
+        <small>{{ attempts.count }} recent quizzes</small>
+      </article>
+    </section>
 
-    <div class="stats-grid" style="margin-bottom: 3rem;">
-      <div class="stat-card">
-        <div class="stat-number">{{ profile.privacy_score }}</div>
-        <div class="stat-label">Privacy Score</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number" style="color: var(--accent-emerald);">{{ profile.footprint_risk }}</div>
-        <div class="stat-label">Footprint Risk</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">{{ attempts.count }}</div>
-        <div class="stat-label">Quizzes Completed</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">{{ badges.count }}</div>
-        <div class="stat-label">Badges Earned</div>
-      </div>
-    </div>
-
-    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
-      <div class="modal-card" style="position: static; transform: none; max-width: 100%;">
-        <h3 style="font-size: 1.4rem; margin-bottom: 1.5rem; color: var(--text-bright);">Recent Quiz Activity</h3>
-        {% for attempt in attempts %}
-          <div style="padding: 1rem; border-radius: 8px; background: rgba(255, 255, 255, 0.03); margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <h4 style="color: var(--text-bright);">{{ attempt.quiz.title }}</h4>
-              <p style="font-size: 0.85rem; color: var(--text-muted);">{{ attempt.completed_at|date:"M d, Y" }}</p>
-            </div>
-            <span style="font-weight: 700; color: var(--primary-cyan);">+{{ attempt.score }} pts</span>
+    <div class="dashboard-layout">
+      <section class="dashboard-panel rankings-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="panel-kicker"><i class="fa-solid fa-trophy"></i> LIVE RANKINGS</p>
+            <h2>XP leaderboard</h2>
+            <p>Highest XP wins the top position.</p>
           </div>
-        {% empty %}
-          <p style="color: var(--text-muted);">No quiz activity yet. Take a quiz to earn points!</p>
-        {% endfor %}
-      </div>
+          <a href="{% url 'leaderboard:index' %}" class="panel-link">Full board <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
 
-      <div class="modal-card" style="position: static; transform: none; max-width: 100%;">
-        <h3 style="font-size: 1.4rem; margin-bottom: 1.5rem; color: var(--text-bright);">Quick Links</h3>
-        <a href="{% url 'quiz:index' %}" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">Take New Quiz</a>
-        <a href="{% url 'journey:index' %}" class="btn btn-secondary" style="width: 100%; margin-bottom: 1rem;">Learning Journey</a>
-        <a href="{% url 'accounts:profile' %}" class="btn btn-secondary" style="width: 100%;">Edit Profile</a>
-      </div>
+        <div class="ranking-list">
+          {% for player in rankings %}
+            <div class="ranking-row {% if player.user == user %}is-current-player{% endif %}">
+              <span class="ranking-position {% if forloop.counter <= 3 %}rank-top-{{ forloop.counter }}{% endif %}">
+                {% if forloop.counter == 1 %}<i class="fa-solid fa-crown"></i>{% else %}{{ forloop.counter }}{% endif %}
+              </span>
+              <span class="player-avatar">{{ player.user.username|first|upper }}</span>
+              <div class="ranking-player"><strong>{{ player.user.username }}</strong>{% if player.user == user %}<span>You</span>{% endif %}</div>
+              <span class="ranking-level">LVL {{ player.current_level }}</span>
+              <strong class="ranking-xp"><i class="fa-solid fa-bolt"></i> {{ player.xp }} <small>XP</small></strong>
+            </div>
+          {% empty %}
+            <div class="empty-state"><i class="fa-solid fa-rocket"></i><p>No players yet. Start the first quest!</p></div>
+          {% endfor %}
+        </div>
+      </section>
+
+      <aside class="dashboard-side">
+        <section class="dashboard-panel activity-panel">
+          <div class="panel-heading compact-heading">
+            <div><p class="panel-kicker"><i class="fa-solid fa-clock-rotate-left"></i> ACTIVITY</p><h2>Recent quizzes</h2></div>
+          </div>
+          <div class="activity-list">
+            {% for attempt in attempts %}
+              <div class="activity-row">
+                <span class="activity-icon"><i class="fa-solid fa-circle-check"></i></span>
+                <div><strong>{{ attempt.quiz.title }}</strong><span>{{ attempt.completed_at|date:"M d, Y" }}</span></div>
+                <b>+{{ attempt.score }}</b>
+              </div>
+            {% empty %}
+              <div class="empty-state small"><i class="fa-solid fa-clipboard-question"></i><p>Your completed quizzes will appear here.</p></div>
+            {% endfor %}
+          </div>
+        </section>
+
+        <section class="next-quest-card">
+          <span class="quest-spark"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+          <p>YOUR NEXT MOVE</p>
+          <h2>Build your XP streak</h2>
+          <span>Complete another challenge and move up the board.</span>
+          <a href="{% url 'journey:index' %}" class="btn btn-glow">Open learning journey <i class="fa-solid fa-arrow-right"></i></a>
+        </section>
+      </aside>
     </div>
   </div>
 </section>

@@ -7,7 +7,7 @@
     <div class="section-header">
       <div class="section-tag"><i class="fa-solid fa-trophy"></i> Scoreboard</div>
       <h2 class="section-title">Global Privacy <span class="gradient-text">Leaderboard</span></h2>
-      <p class="section-description">Top ranked students based on privacy score & challenge completions.</p>
+      <p class="section-description">Players ranked by the XP they earn while completing learning challenges.</p>
     </div>
 
     <div class="modal-card" style="position: static; transform: none; max-width: 100%; padding: 2rem;">
@@ -16,8 +16,8 @@
           <tr style="border-bottom: 1px solid var(--glass-border); color: var(--text-muted);">
             <th style="padding: 1rem;">Rank</th>
             <th style="padding: 1rem;">User</th>
-            <th style="padding: 1rem;">Privacy Score</th>
-            <th style="padding: 1rem;">Risk Level</th>
+            <th style="padding: 1rem;">XP Collected</th>
+            <th style="padding: 1rem;">Level</th>
           </tr>
         </thead>
         <tbody>
@@ -25,12 +25,12 @@
             <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
               <td style="padding: 1rem; font-weight: 700; color: var(--primary-cyan);">#{{ forloop.counter }}</td>
               <td style="padding: 1rem; font-weight: 600; color: var(--text-bright);">{{ profile.user.username }}</td>
-              <td style="padding: 1rem; font-weight: 700;">{{ profile.privacy_score }} / 100</td>
-              <td style="padding: 1rem; color: var(--accent-emerald);">{{ profile.footprint_risk }}</td>
+              <td style="padding: 1rem; font-weight: 700; color: var(--accent-amber);"><i class="fa-solid fa-bolt"></i> {{ profile.xp }} XP</td>
+              <td style="padding: 1rem; color: var(--accent-emerald);">{{ profile.current_level }}</td>
             </tr>
           {% empty %}
             <tr>
-              <td colspan="4" style="padding: 2rem; text-align: center; color: var(--text-muted);">No student rankings yet. Be the first to join!</td>
+              <td colspan="4" style="padding: 2rem; text-align: center; color: var(--text-muted);">No player rankings yet. Be the first to earn XP!</td>
             </tr>
           {% endfor %}
         </tbody>

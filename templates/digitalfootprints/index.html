@@ -43,6 +43,42 @@
         </div>
       {% endfor %}
     </div>
+
+    <div class="section-header" style="margin-top: 6rem;">
+      <div class="section-tag"><i class="fa-solid fa-shield-heart"></i> Privacy check</div>
+      <h2 class="section-title">Run a Quick <span class="gradient-text">Footprint Scan</span></h2>
+      <p class="section-description">Use these three habits to make your digital shadow safer today.</p>
+    </div>
+
+    <div class="features-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <article class="tilt-card">
+        <div class="feature-icon"><i class="fa-solid fa-key"></i></div>
+        <span style="color: var(--primary-cyan); font: 600 0.75rem var(--font-mono); letter-spacing: 0.1em;">STEP 01</span>
+        <h3 style="margin: 0.6rem 0;">Secure your accounts</h3>
+        <p>Use a unique passphrase for every account and switch on two-factor authentication.</p>
+      </article>
+      <article class="tilt-card">
+        <div class="feature-icon"><i class="fa-solid fa-location-dot"></i></div>
+        <span style="color: var(--primary-cyan); font: 600 0.75rem var(--font-mono); letter-spacing: 0.1em;">STEP 02</span>
+        <h3 style="margin: 0.6rem 0;">Review app permissions</h3>
+        <p>Remove access to your location, camera, and contacts when an app does not need it.</p>
+      </article>
+      <article class="tilt-card">
+        <div class="feature-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+        <span style="color: var(--primary-cyan); font: 600 0.75rem var(--font-mono); letter-spacing: 0.1em;">STEP 03</span>
+        <h3 style="margin: 0.6rem 0;">Search your public profile</h3>
+        <p>Check what appears when you search your name and remove anything you no longer want public.</p>
+      </article>
+    </div>
+
+    <div class="modal-card" style="position: static; transform: none; max-width: 920px; margin: 3rem auto 0; padding: 2rem; display: flex; gap: 1.5rem; align-items: center; justify-content: space-between;">
+      <div>
+        <div class="section-tag" style="margin-bottom: 0.7rem;"><i class="fa-solid fa-gamepad"></i> Quest ready</div>
+        <h3 style="font-size: 1.5rem; color: var(--text-bright);">Turn privacy habits into XP</h3>
+        <p style="color: var(--text-muted); margin-top: 0.4rem;">Complete the Learning Journey to practice safer digital decisions and collect rewards.</p>
+      </div>
+      <a href="{% url 'journey:index' %}" class="btn btn-primary" style="white-space: nowrap;"><i class="fa-solid fa-route"></i> Start quest</a>
+    </div>
   </div>
 </section>
 {% endblock %}

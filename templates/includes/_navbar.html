@@ -36,11 +36,12 @@
       <div class="logo-text">Footprint<span>Quest</span></div>
     </a>
 
-    <!-- Strictly 4 Main Navigation Items -->
+    <!-- Main Navigation Items -->
     <ul class="nav-links">
       <li><a href="{% url 'home:index' %}" class="nav-link active">Home</a></li>
       <li><a href="{% url 'digitalfootprints:index' %}" class="nav-link">Digital Footprints</a></li>
       <li><a href="{% url 'journey:index' %}" class="nav-link">Learning Journey</a></li>
+      <li><a href="{% url 'blog:index' %}" class="nav-link">Blog</a></li>
       {% if user.is_authenticated %}
         <li><a href="{% url 'dashboard:index' %}" class="nav-link">Dashboard</a></li>
       {% else %}

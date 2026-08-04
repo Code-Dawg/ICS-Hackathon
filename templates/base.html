@@ -35,15 +35,14 @@
   <!-- Reusable Includes -->
   {% include 'includes/_cursor.html' %}
   {% include 'includes/_canvas.html' %}
-  {% include 'includes/_navbar.html' %}
+  {% block navigation %}{% include 'includes/_navbar.html' %}{% endblock %}
 
   <!-- Main Dynamic Body Content -->
   <main>
     {% block content %}{% endblock %}
   </main>
 
-  <!-- Reusable Footer & Modals -->
-  {% include 'includes/_footer.html' %}
+  <!-- Reusable Modals -->
   {% include 'includes/_modals.html' %}
 
   <!-- Floating Back To Top Button -->
