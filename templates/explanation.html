@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}Explanation - Scenario {{ order }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-9">
+
+        <!-- Result Header Banner -->
+        <div class="glass-card p-4 mb-4 text-center">
+            <div class="d-inline-block px-3 py-1 rounded-pill mb-2 
+                {% if choice.quality_type == 'EXCELLENT' %}bg-success bg-opacity-25 text-success border border-success
+                {% elif choice.quality_type == 'GOOD' %}bg-primary bg-opacity-25 text-primary border border-primary
+                {% elif choice.quality_type == 'NEUTRAL' %}bg-secondary bg-opacity-25 text-white-50 border border-secondary
+                {% elif choice.quality_type == 'RISKY' %}bg-warning bg-opacity-25 text-warning border border-warning
+                {% else %}bg-danger bg-opacity-25 text-danger border border-danger{% endif %}">
+                <span class="fw-bold fs-6">{{ choice.get_quality_type_display }}</span>
+            </div>
+
+            <h2 class="display-6 fw-bold text-white mb-2">
+                Score Impact: 
+                <span class="{% if choice.score_impact > 0 %}text-success{% elif choice.score_impact < 0 %}text-danger{% else %}text-muted{% endif %}">
+                    {% if choice.score_impact > 0 %}+{% endif %}{{ choice.score_impact }} Points
+                </span>
+            </h2>
+
+            <p class="text-white-50 mb-0">Your Selected Action: "<em>{{ choice.text }}</em>"</p>
+        </div>
+
+        <!-- Educational Explanation Card -->
+        <div class="glass-card p-4 p-md-5 mb-4">
+
+            <!-- Why it affects footprint -->
+            <div class="mb-4">
+                <h4 class="fw-bold text-primary mb-2">
+                    <i class="bi bi-lightbulb-fill text-warning me-2"></i>Why This Affects Your Digital Footprint
+                </h4>
+                <p class="text-white-50 fs-6 leading-relaxed">{{ choice.explanation }}</p>
+            </div>
+
+            <hr class="border-secondary opacity-25 my-4">
+
+            <!-- Long Term Consequences -->
+            <div class="mb-4">
+                <h4 class="fw-bold text-info mb-2">
+                    <i class="bi bi-hourglass-split me-2"></i>Long-Term Consequences
+                </h4>
+                <p class="text-white-50 fs-6 leading-relaxed">{{ choice.consequences }}</p>
+            </div>
+
+            <hr class="border-secondary opacity-25 my-4">
+
+            <!-- Pro Tip -->
+            <div class="highlight-box success">
+                <h5 class="fw-bold text-success mb-1">
+                    <i class="bi bi-shield-check me-2"></i>Pro Tip for Digital Citizenship
+                </h5>
+                <p class="text-white-50 mb-0 fs-6">{{ choice.tip }}</p>
+            </div>
+
+            <!-- Score Update Bar -->
+            <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top border-secondary border-opacity-25">
+                <div>
+                    <span class="text-white-50 me-2">Updated Score:</span>
+                    <span class="fw-bold fs-4 text-warning">{{ profile.current_score }} pts</span>
+                </div>
+
+                {% if next_order %}
+                    <a href="{% url 'scenario_detail' order=next_order %}" class="btn btn-gradient btn-lg">
+                        Next Scenario <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                {% else %}
+                    <a href="{% url 'final_report' %}" class="btn btn-gradient btn-lg">
+                        <i class="bi bi-award-fill me-1"></i> View Final Report
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Badges Unlocked Section -->
+        {% if user_achievements %}
+            <div class="glass-card p-4">
+                <h5 class="fw-bold text-white mb-3"><i class="bi bi-trophy text-warning me-2"></i>Unlocked Badges</h5>
+                <div class="badge-grid">
+                    {% for ua in user_achievements %}
+                        <div class="badge-card unlocked">
+                            <div class="badge-icon">{{ ua.achievement.icon_emoji }}</div>
+                            <div class="badge-title">{{ ua.achievement.title }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}
