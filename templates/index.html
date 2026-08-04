@@ -1,111 +1,786 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  {% load static %}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EduPulse | Learn Without Limits</title>
-  <!-- Link to External Stylesheet -->
+  <title>EduPulse | Futuristic Digital Footprint & Learning Platform</title>
+  <meta name="description" content="Master your digital identity, analyze online footprints, and learn privacy protection with EduPulse interactive courses.">
+  
+  <!-- Google Fonts: Outfit & Fira Code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- External Stylesheet -->
   <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
 
-  <!-- Header & Navigation -->
+  <!-- Custom Glowing Cursor -->
+  <div id="cursor-dot" class="custom-cursor-dot"></div>
+  <div id="cursor-ring" class="custom-cursor-ring"></div>
+
+  <!-- Reading Progress Bar -->
+  <div id="scroll-progress"></div>
+
+  <!-- Space Canvas Background -->
+  <canvas id="space-canvas"></canvas>
+
+  <!-- Navigation Bar (Glassmorphism) -->
   <header>
-    <div class="nav-container">
-      <a href="#" class="logo">daju haru</a>
+    <div class="container nav-container">
+      <a href="#home" class="logo">
+        <div class="logo-icon">
+          <i class="fa-solid fa-shoe-prints"></i>
+        </div>
+        <div class="logo-text">Edu<span>Pulse</span></div>
+      </a>
+
       <ul class="nav-links">
-        <li><a href="#features">Features</a></li>
-        <li><a href="#courses">Courses</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#" class="btn">Get Started</a></li>
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#timeline" class="nav-link">Learning Journey</a></li>
+        <li><a href="#footprints" class="nav-link">Digital Footprints</a></li>
+        <li><a href="#stats" class="nav-link">Statistics</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+        <li><a href="#cta" class="nav-link">About</a></li>
+        <li><a href="#footer" class="nav-link">Contact</a></li>
       </ul>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button class="btn btn-secondary open-login">Login</button>
+        <button class="btn btn-primary open-register">Create Account</button>
+        <button id="hamburger" class="hamburger" aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Upgrade Your Skills With Expert-Led Courses</h1>
-      <p>Explore thousands of interactive tutorials in web development, data science, design, and business.</p>
-      <a href="#courses" class="btn">Browse Courses</a>
-    </div>
-  </section>
-
-  <!-- Key Features -->
-  <section class="section" id="features">
-    <h2 class="section-title">Why Learn With Us</h2>
-    <div class="features-grid">
-      <div class="feature-item">
-        <h3>Self-Paced Learning</h3>
-        <p>Study on your own schedule with lifetime access to enrolled video modules.</p>
-      </div>
-      <div class="feature-item">
-        <h3>Expert Instructors</h3>
-        <p>Learn directly from industry professionals with real-world experience.</p>
-      </div>
-      <div class="feature-item">
-        <h3>Verified Certificates</h3>
-        <p>Earn shareable certificates upon course completion to boost your resume.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Course Catalog -->
-  <section class="section" id="courses">
-    <h2 class="section-title">Featured Courses</h2>
-    <div class="courses-grid">
+  <!-- Hero Section with Eye-Tracking Cyber Avatar -->
+  <section class="hero-section" id="home">
+    <div class="container hero-grid">
       
-      <div class="course-card">
-        <div class="course-body">
-          <span class="course-badge">Development</span>
-          <h3 class="course-title">Full-Stack Web Development</h3>
-          <p class="course-desc">Master HTML, CSS, JavaScript, React, and Node.js to build modern web applications.</p>
-          <div class="course-footer">
-            <span class="price">$49.99</span>
-            <a href="#" class="btn">Enroll</a>
-          </div>
+      <!-- Hero Text Content -->
+      <div class="hero-content reveal-on-scroll">
+        <div class="section-tag">
+          <i class="fa-solid fa-user-shield"></i> Future of Digital Identity
+        </div>
+        <h1 class="hero-title">
+          Understand Your <span class="gradient-text">Digital Footprint</span> Before It Defines You.
+        </h1>
+        <p class="hero-subtitle">
+          Every search, click, post, and login shapes your permanent digital shadow. Master digital sovereignty, privacy engineering, and cyber awareness through interactive futuristic simulations.
+        </p>
+        <div class="hero-buttons">
+          <button class="btn btn-glow open-register">
+            <i class="fa-solid fa-rocket"></i> Start Journey
+          </button>
+          <a href="#footprints" class="btn btn-secondary">
+            <i class="fa-solid fa-circle-info"></i> Learn More
+          </a>
         </div>
       </div>
 
-      <div class="course-card">
-        <div class="course-body">
-          <span class="course-badge">Data Science</span>
-          <h3 class="course-title">Python for Data Analysis</h3>
-          <p class="course-desc">Learn NumPy, Pandas, and Matplotlib to analyze datasets and visualize data.</p>
-          <div class="course-footer">
-            <span class="price">$39.99</span>
-            <a href="#" class="btn">Enroll</a>
+      <!-- Cybernetic Human Illustration with Eye Physics -->
+      <div class="hero-avatar-wrapper reveal-on-scroll">
+        
+        <!-- Floating Glass Badges -->
+        <div class="floating-card floating-card-1">
+          <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="card-meta">
+            <h4>Digital Identity</h4>
+            <p class="neon-text">Encrypted & Active</p>
           </div>
         </div>
-      </div>
 
-      <div class="course-card">
-        <div class="course-body">
-          <span class="course-badge">Design</span>
-          <h3 class="course-title">UI/UX Design Essentials</h3>
-          <p class="course-desc">Understand user research, wireframing, prototyping, and design systems in Figma.</p>
-          <div class="course-footer">
-            <span class="price">$29.99</span>
-            <a href="#" class="btn">Enroll</a>
+        <div class="floating-card floating-card-2">
+          <div class="card-icon"><i class="fa-solid fa-chart-pie"></i></div>
+          <div class="card-meta">
+            <h4>Privacy Score</h4>
+            <p>94 / 100 (A+ Grade)</p>
           </div>
         </div>
+
+        <div class="floating-card floating-card-3">
+          <div class="card-icon"><i class="fa-solid fa-eye"></i></div>
+          <div class="card-meta">
+            <h4>Digital Shadow</h4>
+            <p>Real-time Monitored</p>
+          </div>
+        </div>
+
+        <div class="floating-card floating-card-4">
+          <div class="card-icon"><i class="fa-solid fa-lock"></i></div>
+          <div class="card-meta">
+            <h4>Footprint Risk</h4>
+            <p style="color: var(--accent-emerald);">Low / Secure</p>
+          </div>
+        </div>
+
+        <!-- SVG Digital Cyber Human Avatar -->
+        <div class="avatar-container">
+          <svg class="cyber-head-svg" viewBox="0 0 400 460" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="eyeGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#00f0ff" stop-opacity="1" />
+                <stop offset="60%" stop-color="#0099ff" stop-opacity="0.8" />
+                <stop offset="100%" stop-color="#7000ff" stop-opacity="0" />
+              </radialGradient>
+              <linearGradient id="faceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#1e293b" />
+                <stop offset="50%" stop-color="#0f172a" />
+                <stop offset="100%" stop-color="#050711" />
+              </linearGradient>
+              <linearGradient id="cyberLine" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#00f0ff" />
+                <stop offset="100%" stop-color="#ff007f" />
+              </linearGradient>
+            </defs>
+
+            <!-- Cyber Head Outer Contour Group -->
+            <g id="avatar-head">
+              <!-- Cybernetic Neck & Base -->
+              <path d="M 140 370 L 140 440 L 260 440 L 260 370 Z" fill="url(#faceGrad)" stroke="#00f0ff" stroke-width="1.5" opacity="0.8" />
+              <line x1="160" y1="390" x2="240" y2="390" stroke="#00f0ff" stroke-width="2" opacity="0.6" />
+              <line x1="170" y1="410" x2="230" y2="410" stroke="#ff007f" stroke-width="2" opacity="0.6" />
+
+              <!-- Face Contour -->
+              <path d="M 110 140 C 110 50, 290 50, 290 140 C 290 260, 250 360, 200 370 C 150 360, 110 260, 110 140 Z" 
+                    fill="url(#faceGrad)" stroke="#00f0ff" stroke-width="2.5" />
+
+              <!-- Futuristic Holographic Forehead Markings -->
+              <path d="M 170 90 L 230 90 L 200 120 Z" fill="none" stroke="url(#cyberLine)" stroke-width="2" />
+              <circle cx="200" cy="100" r="4" fill="#00f0ff" />
+
+              <!-- Cyber Ear Implants -->
+              <rect x="90" y="160" width="20" height="50" rx="8" fill="#0f172a" stroke="#00f0ff" stroke-width="2" />
+              <rect x="290" y="160" width="20" height="50" rx="8" fill="#0f172a" stroke="#00f0ff" stroke-width="2" />
+              <circle cx="100" cy="185" r="5" fill="#ff007f" />
+              <circle cx="300" cy="185" r="5" fill="#ff007f" />
+
+              <!-- Nose Bridge Line -->
+              <path d="M 200 160 L 195 240 L 205 240" fill="none" stroke="rgba(0, 240, 255, 0.4)" stroke-width="2" />
+
+              <!-- Cyber Lips / Mouth -->
+              <path d="M 170 290 Q 200 305 230 290" fill="none" stroke="#00f0ff" stroke-width="2" opacity="0.8" />
+
+              <!-- LEFT EYE SOCKET & BULB -->
+              <g id="left-eye-socket" transform="translate(150, 180)">
+                <!-- Eye White/Sclera Base -->
+                <ellipse cx="0" cy="0" rx="28" ry="18" fill="#090d1f" stroke="#00f0ff" stroke-width="2" />
+                
+                <!-- Left Pupil + Glowing Iris (Controlled by JS Eye Physics) -->
+                <g id="left-pupil">
+                  <circle cx="0" cy="0" r="14" fill="url(#eyeGlow)" />
+                  <circle cx="0" cy="0" r="7" fill="#030712" />
+                  <circle cx="-3" cy="-4" r="3" fill="#ffffff" />
+                </g>
+
+                <!-- Eyelid Overlay for Blinking Animation -->
+                <ellipse class="eye-lid" cx="0" cy="0" rx="30" ry="20" fill="#0f172a" />
+              </g>
+
+              <!-- RIGHT EYE SOCKET & BULB -->
+              <g id="right-eye-socket" transform="translate(250, 180)">
+                <!-- Eye White/Sclera Base -->
+                <ellipse cx="0" cy="0" rx="28" ry="18" fill="#090d1f" stroke="#00f0ff" stroke-width="2" />
+                
+                <!-- Right Pupil + Glowing Iris (Controlled by JS Eye Physics) -->
+                <g id="right-pupil">
+                  <circle cx="0" cy="0" r="14" fill="url(#eyeGlow)" />
+                  <circle cx="0" cy="0" r="7" fill="#030712" />
+                  <circle cx="-3" cy="-4" r="3" fill="#ffffff" />
+                </g>
+
+                <!-- Eyelid Overlay for Blinking Animation -->
+                <ellipse class="eye-lid" cx="0" cy="0" rx="30" ry="20" fill="#0f172a" />
+              </g>
+
+              <!-- Eyebrow Accents -->
+              <path d="M 125 152 Q 150 142 175 155" fill="none" stroke="#00f0ff" stroke-width="3" stroke-linecap="round" />
+              <path d="M 225 155 Q 250 142 275 152" fill="none" stroke="#00f0ff" stroke-width="3" stroke-linecap="round" />
+
+              <!-- Cybernetic Cheek Lines -->
+              <path d="M 120 220 L 140 250 L 160 250" fill="none" stroke="rgba(0, 240, 255, 0.4)" stroke-width="1.5" />
+              <path d="M 280 220 L 260 250 L 240 250" fill="none" stroke="rgba(0, 240, 255, 0.4)" stroke-width="1.5" />
+            </g>
+          </svg>
+        </div>
+
       </div>
 
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="cta-section">
-    <h2>Ready to start learning?</h2>
-    <p>Join over 50,000 students advancing their careers today.</p>
-    <a href="#" class="btn cta-btn">Create Free Account</a>
+  <!-- Statistics Counter Section -->
+  <section class="stats-section" id="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card reveal-on-scroll">
+          <div class="stat-number" data-count="100000" data-suffix="+">0</div>
+          <div class="stat-label">Active Students</div>
+        </div>
+
+        <div class="stat-card reveal-on-scroll">
+          <div class="stat-number" data-count="500" data-suffix="+">0</div>
+          <div class="stat-label">Learning Modules</div>
+        </div>
+
+        <div class="stat-card reveal-on-scroll">
+          <div class="stat-number" data-count="2000000" data-suffix="+">0</div>
+          <div class="stat-label">Footprints Analyzed</div>
+        </div>
+
+        <div class="stat-card reveal-on-scroll">
+          <div class="stat-number" data-count="98" data-suffix="%">0</div>
+          <div class="stat-label">Success Rate</div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2026 EduPulse Inc. All rights reserved.</p>
+  <!-- Digital Footprint Explanation Section -->
+  <section class="footprint-section" id="footprints">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <div class="section-tag"><i class="fa-solid fa-fingerprint"></i> Footprint Matrix</div>
+        <h2 class="section-title">The Four Types of <span class="gradient-text">Digital Shadows</span></h2>
+        <p class="section-description">Every action leave traces. Understand how passive logs, active posts, and security decisions build your public online legacy.</p>
+      </div>
+
+      <div class="footprint-grid">
+        
+        <!-- Card 1: Positive Footprint -->
+        <div class="footprint-card positive reveal-on-scroll">
+          <div>
+            <div class="footprint-header">
+              <div class="footprint-icon-wrap"><i class="fa-solid fa-award"></i></div>
+              <h3 class="footprint-title">Positive Footprint</h3>
+            </div>
+            <p class="footprint-desc">
+              Your professional portfolio, published research, open-source code contributions, verified certificates, and beneficial community leadership.
+            </p>
+          </div>
+          <div class="footprint-tags">
+            <span class="tag">Verified Badges</span>
+            <span class="tag">Career Boosting</span>
+            <span class="tag">Public Portfolio</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Negative Footprint -->
+        <div class="footprint-card negative reveal-on-scroll">
+          <div>
+            <div class="footprint-header">
+              <div class="footprint-icon-wrap" style="color: var(--accent-magenta); background: rgba(255, 0, 127, 0.1);"><i class="fa-solid fa-triangle-exclamation"></i></div>
+              <h3 class="footprint-title">Negative Footprint</h3>
+            </div>
+            <p class="footprint-desc">
+              Exposed password leaks, unverified public rants, compromised credentials, overshared locations, and unencrypted personal data.
+            </p>
+          </div>
+          <div class="footprint-tags">
+            <span class="tag">Data Leaks</span>
+            <span class="tag">Reputation Risk</span>
+            <span class="tag">Identity Vulnerability</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Passive Footprint -->
+        <div class="footprint-card passive reveal-on-scroll">
+          <div>
+            <div class="footprint-header">
+              <div class="footprint-icon-wrap" style="color: var(--primary-cyan); background: rgba(0, 240, 255, 0.1);"><i class="fa-solid fa-satellite-dish"></i></div>
+              <h3 class="footprint-title">Passive Footprint</h3>
+            </div>
+            <p class="footprint-desc">
+              Invisible data collected automatically: IP address tracking, device fingerprinting, browser cookies, location beacons, and server logs.
+            </p>
+          </div>
+          <div class="footprint-tags">
+            <span class="tag">IP Logs</span>
+            <span class="tag">Browser Canvas</span>
+            <span class="tag">Telemetry</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Active Footprint -->
+        <div class="footprint-card active-fp reveal-on-scroll">
+          <div>
+            <div class="footprint-header">
+              <div class="footprint-icon-wrap" style="color: var(--primary-purple); background: rgba(139, 92, 246, 0.1);"><i class="fa-solid fa-share-nodes"></i></div>
+              <h3 class="footprint-title">Active Footprint</h3>
+            </div>
+            <p class="footprint-desc">
+              Intentional digital activity: social media posts, comments, app signups, online purchases, media uploads, and public communications.
+            </p>
+          </div>
+          <div class="footprint-tags">
+            <span class="tag">Social Posts</span>
+            <span class="tag">Account Signups</span>
+            <span class="tag">User Media</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Timeline Section -->
+  <section class="timeline-section" id="timeline">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <div class="section-tag"><i class="fa-solid fa-timeline"></i> Lifecycle Roadmap</div>
+        <h2 class="section-title">The <span class="gradient-text">Digital Footprint</span> Journey</h2>
+        <p class="section-description">Follow the lifecycle of personal data from your first online login to long-term career sovereignty.</p>
+      </div>
+
+      <div class="timeline-wrapper">
+        <div class="timeline-bar">
+          <div class="timeline-progress"></div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-card">
+            <div class="timeline-step">Step 01</div>
+            <h3>Account Initialization</h3>
+            <p>You create your first accounts and establish your digital persona on modern platforms.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-card">
+            <div class="timeline-step">Step 02</div>
+            <h3>Online Engagement</h3>
+            <p>Publishing posts, sharing photos, and interacting across global digital networks.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-card">
+            <div class="timeline-step">Step 03</div>
+            <h3>Data Aggregation</h3>
+            <p>Search engines and data brokers index your public records, metadata, and social trails.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-card">
+            <div class="timeline-step">Step 04</div>
+            <h3>Privacy Choices</h3>
+            <p>Configuring 2FA, zero-knowledge encryption, consent cookies, and privacy controls.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-card">
+            <div class="timeline-step">Step 05</div>
+            <h3>Footprint Expansion</h3>
+            <p>Your digital identity grows into a vast network of historical references and logs.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-card">
+            <div class="timeline-step">Step 06</div>
+            <h3>Reputation Formation</h3>
+            <p>Recruiters, universities, and security tools evaluate your online reputation score.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-card">
+            <div class="timeline-step">Step 07</div>
+            <h3>Real-world Career Impact</h3>
+            <p>Your digital footprint directly unlocks professional opportunities or creates risk.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-card">
+            <div class="timeline-step">Step 08</div>
+            <h3>Future Digital Sovereignty</h3>
+            <p>Master EduPulse strategies to manage, clean, and protect your digital identity forever.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Learning Features (3D Tilt Cards) -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <div class="section-tag"><i class="fa-solid fa-graduation-cap"></i> Interactive Suite</div>
+        <h2 class="section-title">Next-Gen <span class="gradient-text">Learning Features</span></h2>
+        <p class="section-description">Interactive simulations, real-world cyber games, verified certification, and live progress analytics.</p>
+      </div>
+
+      <div class="features-grid">
+        
+        <div class="tilt-card reveal-on-scroll">
+          <div class="feature-icon"><i class="fa-solid fa-laptop-code"></i></div>
+          <h3>Interactive Lessons</h3>
+          <p>Hands-on tutorials explaining encryption, cookie tracking, and digital footprint management.</p>
+        </div>
+
+        <div class="tilt-card reveal-on-scroll">
+          <div class="feature-icon"><i class="fa-solid fa-gamepad"></i></div>
+          <h3>Cyber Mini-Games</h3>
+          <p>Gamified phishing defense, password cracking challenges, and privacy escape rooms.</p>
+        </div>
+
+        <div class="tilt-card reveal-on-scroll">
+          <div class="feature-icon"><i class="fa-solid fa-trophy"></i></div>
+          <h3>Real-time Challenges</h3>
+          <p>Compete in weekly cybersecurity hackathons and footprint sanitization quests.</p>
+        </div>
+
+        <div class="tilt-card reveal-on-scroll">
+          <div class="feature-icon"><i class="fa-solid fa-certificate"></i></div>
+          <h3>Verified Certificates</h3>
+          <p>Earn cryptographic, shareable credentials for your LinkedIn & digital resume.</p>
+        </div>
+
+        <div class="tilt-card reveal-on-scroll">
+          <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <h3>Global Leaderboard</h3>
+          <p>Track your ranking against 100,000+ students worldwide as you complete modules.</p>
+        </div>
+
+        <div class="tilt-card reveal-on-scroll">
+          <div class="feature-icon"><i class="fa-solid fa-brain"></i></div>
+          <h3>AI Progress Tracking</h3>
+          <p>Personalized learning algorithms that adapt to your knowledge gaps automatically.</p>
+        </div>
+
+        <div class="tilt-card reveal-on-scroll">
+          <div class="feature-icon"><i class="fa-solid fa-circle-question"></i></div>
+          <h3>Privacy Quizzes</h3>
+          <p>Test your awareness with real-world scenarios, metadata inspection, and legal compliance.</p>
+        </div>
+
+        <div class="tilt-card reveal-on-scroll">
+          <div class="feature-icon"><i class="fa-solid fa-shield"></i></div>
+          <h3>Awareness Tools</h3>
+          <p>Live browser extensions and scanner utilities to inspect your current online footprint.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Carousel -->
+  <section class="testimonials-section" id="testimonials">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <div class="section-tag"><i class="fa-solid fa-comments"></i> Student Feedback</div>
+        <h2 class="section-title">Loved by <span class="gradient-text">100,000+ Learners</span></h2>
+        <p class="section-description">See how EduPulse has helped students, developers, and professionals protect their online privacy.</p>
+      </div>
+
+      <div class="testimonial-carousel reveal-on-scroll">
+        <div class="testimonial-track">
+          
+          <div class="testimonial-slide">
+            <div class="testimonial-card">
+              <div class="stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <p class="testimonial-quote">"EduPulse opened my eyes to how much metadata I was leaking daily. The interactive eye-tracking hero and timeline made complex privacy topics intuitive!"</p>
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Sophia Chen" class="testimonial-avatar">
+              <h4 class="testimonial-author">Sophia Chen</h4>
+              <p class="testimonial-role">Cybersecurity Student @ MIT</p>
+            </div>
+          </div>
+
+          <div class="testimonial-slide">
+            <div class="testimonial-card">
+              <div class="stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <p class="testimonial-quote">"The digital footprint breakdown and verified certificates directly helped me land my first Cloud Security Internship. Outstanding platform!"</p>
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="Marcus Vance" class="testimonial-avatar">
+              <h4 class="testimonial-author">Marcus Vance</h4>
+              <p class="testimonial-role">Full-Stack Engineer</p>
+            </div>
+          </div>
+
+          <div class="testimonial-slide">
+            <div class="testimonial-card">
+              <div class="stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <p class="testimonial-quote">"The 3D tilt cards, space particle effects, and futuristic design make learning cyber defense feel like playing an AAA sci-fi game."</p>
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80" alt="Elena Rostova" class="testimonial-avatar">
+              <h4 class="testimonial-author">Elena Rostova</h4>
+              <p class="testimonial-role">Product Designer</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="carousel-nav">
+          <button class="carousel-btn prev-btn" aria-label="Previous Slide"><i class="fa-solid fa-arrow-left"></i></button>
+          <button class="carousel-btn next-btn" aria-label="Next Slide"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion Section -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <div class="section-tag"><i class="fa-solid fa-circle-question"></i> Questions & Answers</div>
+        <h2 class="section-title">Frequently Asked <span class="gradient-text">Questions</span></h2>
+        <p class="section-description">Find clear answers regarding digital footprints, platform security, and course completion.</p>
+      </div>
+
+      <div class="faq-container reveal-on-scroll">
+        
+        <div class="faq-item active">
+          <div class="faq-header">
+            <h3 class="faq-title">What is a Digital Footprint and why does it matter?</h3>
+            <div class="faq-icon"><i class="fa-solid fa-chevron-down"></i></div>
+          </div>
+          <div class="faq-body">
+            <p class="faq-content">
+              A digital footprint is the unique trail of data you create while using the internet. It includes website visits, social posts, emails, and device metadata. Managing it is crucial to safeguard your personal privacy, avoid identity theft, and preserve a positive professional reputation.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-header">
+            <h3 class="faq-title">Can I remove my historical digital footprint entirely?</h3>
+            <div class="faq-icon"><i class="fa-solid fa-chevron-down"></i></div>
+          </div>
+          <div class="faq-body">
+            <p class="faq-content">
+              While complete deletion across all global archives is difficult, EduPulse teaches you how to opt-out from data brokers, enforce GDPR/CCPA deletion requests, encrypt future communications, and minimize passive tracking.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-header">
+            <h3 class="faq-title">Are the course certificates verified and shareable?</h3>
+            <div class="faq-icon"><i class="fa-solid fa-chevron-down"></i></div>
+          </div>
+          <div class="faq-body">
+            <p class="faq-content">
+              Yes! Upon completing any learning track, you receive a cryptographically verified digital badge and certificate that can be embedded directly into LinkedIn, GitHub, or your personal resume.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-header">
+            <h3 class="faq-title">Is EduPulse suitable for beginners in cybersecurity?</h3>
+            <div class="faq-icon"><i class="fa-solid fa-chevron-down"></i></div>
+          </div>
+          <div class="faq-body">
+            <p class="faq-content">
+              Absolutely! Our courses start from foundational internet literacy and scale up to advanced privacy engineering and cryptography.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Futuristic Call To Action (CTA) Section -->
+  <section class="cta-section" id="cta">
+    <div class="container">
+      <div class="cta-box reveal-on-scroll">
+        <h2 class="cta-title">Ready to Take Control of Your <span class="gradient-text">Digital Future</span>?</h2>
+        <p class="cta-subtitle">
+          Join over 100,000 students mastering digital privacy, identity protection, and cyber awareness today.
+        </p>
+        <button class="btn btn-glow open-register" style="font-size: 1.15rem; padding: 1rem 2.5rem;">
+          <i class="fa-solid fa-user-plus"></i> Create Free Account
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rich Glass Footer -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        
+        <div class="footer-brand">
+          <a href="#home" class="logo">
+            <div class="logo-icon"><i class="fa-solid fa-shoe-prints"></i></div>
+            <div class="logo-text">Edu<span>Pulse</span></div>
+          </a>
+          <p>Empowering global learners with futuristic education in digital sovereignty, privacy protection, and cybersecurity.</p>
+          <div class="social-links">
+            <a href="#" class="social-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="social-btn" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#timeline">Learning Journey</a></li>
+            <li><a href="#footprints">Digital Footprints</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Resources</h4>
+          <ul class="footer-links">
+            <li><a href="#stats">Statistics</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#">Privacy Scanner</a></li>
+            <li><a href="#">Documentation</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Legal</h4>
+          <ul class="footer-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Security Audit</a></li>
+            <li><a href="#">GDPR Compliance</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Newsletter</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">Get weekly privacy tips & course updates.</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed to EduPulse updates!');">
+            <input type="email" placeholder="Enter your email" class="newsletter-input" required>
+            <button type="submit" class="btn btn-primary" style="padding: 0.65rem 1rem;">Subscribe</button>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 EduPulse Inc. All rights reserved. Built with Django & Futuristic Tech.</p>
+        <p>Awwwards Quality Design System</p>
+      </div>
+    </div>
   </footer>
 
+  <!-- Floating Back to Top Button -->
+  <button class="back-to-top" aria-label="Back to Top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <!-- Login Modal (Glassmorphism) -->
+  <div id="login-modal" class="modal-overlay">
+    <div class="modal-card">
+      <button class="modal-close" aria-label="Close Modal"><i class="fa-solid fa-xmark"></i></button>
+      <h2 class="modal-title">Welcome <span class="gradient-text">Back</span></h2>
+      <p class="modal-subtitle">Log in to your EduPulse dashboard</p>
+
+      <form onsubmit="event.preventDefault(); alert('Login successful!');">
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" placeholder="name@example.com" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" placeholder="••••••••" required>
+        </div>
+
+        <div class="form-options">
+          <label class="remember-me">
+            <input type="checkbox"> Remember me
+          </label>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.9rem;">Sign In</button>
+      </form>
+
+      <div class="social-login-divider">or continue with</div>
+
+      <div class="social-btns">
+        <button class="social-auth-btn"><i class="fa-brands fa-google"></i> Google</button>
+        <button class="social-auth-btn"><i class="fa-brands fa-github"></i> GitHub</button>
+      </div>
+
+      <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+        Don't have an account? <a href="#" class="modal-switch" data-target="register">Create Account</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Create Account Modal (Glassmorphism) -->
+  <div id="register-modal" class="modal-overlay">
+    <div class="modal-card">
+      <button class="modal-close" aria-label="Close Modal"><i class="fa-solid fa-xmark"></i></button>
+      <h2 class="modal-title">Join <span class="gradient-text">EduPulse</span></h2>
+      <p class="modal-subtitle">Start your digital footprint learning journey</p>
+
+      <form onsubmit="event.preventDefault(); alert('Account created successfully!');">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-input" placeholder="Alex Mercer" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" placeholder="name@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" placeholder="••••••••" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Confirm Password</label>
+          <input type="password" class="form-input" placeholder="••••••••" required>
+        </div>
+
+        <div class="form-options">
+          <label class="remember-me">
+            <input type="checkbox" required> I accept the Terms & Conditions
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-glow" style="width: 100%; padding: 0.9rem;">Create Free Account</button>
+      </form>
+
+      <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+        Already have an account? <a href="#" class="modal-switch" data-target="login">Log In</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Embedded Vanilla JS Script -->
+  <script src="{% static 'script.js' %}"></script>
 </body>
 </html>
