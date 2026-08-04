@@ -1,0 +1,99 @@
+/* ==========================================================================
+   HERO SECTION & CYBER AVATAR STYLES
+   ========================================================================== */
+
+.hero-section {
+  min-height: 100vh;
+  padding-top: calc(var(--nav-height) + 2rem);
+  padding-bottom: 5rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  border-radius: var(--border-radius-full);
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid var(--glass-border);
+  color: var(--primary-cyan);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 1rem;
+  backdrop-filter: blur(10px);
+}
+
+.hero-title {
+  font-size: 3.8rem;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  margin-bottom: 1.5rem;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.hero-avatar-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar-container {
+  width: 100%;
+  max-width: 460px;
+  height: 520px;
+  position: relative;
+  background: radial-gradient(circle at center, rgba(0, 240, 255, 0.1) 0%, transparent 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: avatarBreath 4s ease-in-out infinite alternate;
+}
+
+.cyber-head-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.3));
+  transform-origin: center center;
+  transition: transform 0.1s ease-out;
+}
+
+.eye-lid {
+  transition: transform 0.12s ease-in-out;
+  transform-origin: center;
+}
+
+.eye-lid.blinking {
+  transform: scaleY(0.05);
+}

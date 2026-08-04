@@ -1,0 +1,59 @@
+/* ==========================================================================
+   FORM INPUTS, LABELS & CHECKBOX STYLES
+   ========================================================================== */
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-bright);
+  margin-bottom: 0.5rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.85rem 1.2rem;
+  border-radius: var(--border-radius-md);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: var(--text-main);
+  outline: none;
+  font-family: var(--font-main);
+  font-size: 1rem;
+  transition: all var(--transition-fast);
+}
+
+.form-input:focus {
+  border-color: var(--primary-cyan);
+  box-shadow: var(--glow-cyan);
+  background: rgba(0, 240, 255, 0.04);
+}
+
+.form-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+}
+
+.forgot-link, .modal-switch-link {
+  color: var(--primary-cyan);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.forgot-link:hover, .modal-switch-link:hover {
+  text-decoration: underline;
+}
