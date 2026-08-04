@@ -279,8 +279,20 @@ class GameJourneyMap {
 
   fetchLevelData(levelId) {
     fetch(`/journey/level-data/${levelId}/`)
-      .then(res => res.json())
+      .then(res => {
+        // Django redirects protected endpoints to the login page.  Follow that
+        // redirect in the browser instead of attempting to parse HTML as JSON.
+        if (res.redirected) {
+          window.location.assign(res.url);
+          return null;
+        }
+        if (!res.ok) {
+          throw new Error(`Unable to load level (${res.status}).`);
+        }
+        return res.json();
+      })
       .then(data => {
+        if (!data) return;
         if (data.status === 'error') {
           alert(data.message);
           return;
@@ -431,8 +443,18 @@ class GameJourneyMap {
       },
       body: JSON.stringify(payload)
     })
-    .then(res => res.json())
+    .then(res => {
+      if (res.redirected) {
+        window.location.assign(res.url);
+        return null;
+      }
+      if (!res.ok) {
+        throw new Error(`Unable to save progress (${res.status}).`);
+      }
+      return res.json();
+    })
     .then(data => {
+      if (!data) return;
       if (data.status === 'success') {
         this.closeLevelModal();
         this.confetti.burst();
