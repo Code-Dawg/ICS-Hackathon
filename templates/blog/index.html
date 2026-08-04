@@ -1,66 +1,23 @@
 {% extends 'base.html' %}
-{% block title %}Digital Safety Blog | Footprint Quest{% endblock %}
+{% block title %}Learning Chapters | Footprint Quest{% endblock %}
 
 {% block content %}
 <section class="features-section" style="padding-top: 10rem;">
   <div class="container">
     <div class="section-header">
-      <div class="section-tag"><i class="fa-solid fa-newspaper"></i> Educational Articles</div>
-      <h2 class="section-title">Digital Safety & <span class="gradient-text">Privacy Tips</span></h2>
-      <p class="section-description">Articles written by cybersecurity researchers and privacy experts.</p>
+      <div class="section-tag"><i class="fa-solid fa-book-open"></i> Learning Chapters</div>
+      <h2 class="section-title">Learn by <span class="gradient-text">Chapter</span></h2>
+      <p class="section-description">Each chapter matches the same-numbered level in your learning journey.</p>
     </div>
 
     <div class="features-grid" style="grid-template-columns: repeat(3, 1fr);">
-      {% for article in articles %}
+      {% for chapter in chapters %}
         <div class="tilt-card">
-          <div class="feature-icon"><i class="fa-solid fa-book-open"></i></div>
-          <span style="font-size: 0.8rem; color: var(--primary-cyan); font-weight: 700;">{{ article.category.name }}</span>
-          <h3 style="margin: 0.5rem 0;">{{ article.title }}</h3>
-          <p>{{ article.summary|truncatewords:20 }}</p>
-          <a href="{% url 'blog:detail' article.slug %}" class="btn btn-secondary" style="margin-top: 1.5rem;">Read Guide</a>
-        </div>
-      {% empty %}
-        <div class="tilt-card">
-          <div class="feature-icon"><i class="fa-solid fa-lock"></i></div>
-          <span style="font-size: 0.8rem; color: var(--primary-cyan); font-weight: 700;">Cyber Awareness</span>
-          <h3 style="margin: 0.5rem 0;">10 Ways to Minimize Passive Data Leaks</h3>
-          <p>Learn how to configure browser privacy headers and block third-party trackers.</p>
-        </div>
-        <div class="tilt-card">
-          <div class="feature-icon"><i class="fa-solid fa-key"></i></div>
-          <span style="font-size: 0.8rem; color: var(--primary-cyan); font-weight: 700;">Authentication</span>
-          <h3 style="margin: 0.5rem 0;">Why Passkeys replace Passwords</h3>
-          <p>Understanding public key cryptography for modern authentication.</p>
-        </div>
-        <div class="tilt-card">
-          <div class="feature-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
-          <span style="font-size: 0.8rem; color: var(--primary-cyan); font-weight: 700;">Phishing Defense</span>
-          <h3 style="margin: 0.5rem 0;">Spot a Phishing Message Before You Click</h3>
-          <p>Learn the warning signs in suspicious links, senders, and urgent requests.</p>
-        </div>
-        <div class="tilt-card">
-          <div class="feature-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
-          <span style="font-size: 0.8rem; color: var(--primary-cyan); font-weight: 700;">Mobile Privacy</span>
-          <h3 style="margin: 0.5rem 0;">Five Phone Settings to Check Today</h3>
-          <p>Reduce location sharing, unnecessary permissions, and background tracking.</p>
-        </div>
-        <div class="tilt-card">
-          <div class="feature-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
-          <span style="font-size: 0.8rem; color: var(--primary-cyan); font-weight: 700;">Data Protection</span>
-          <h3 style="margin: 0.5rem 0;">A Simple Guide to Backups and Recovery</h3>
-          <p>Keep important files safe with encrypted backups and a practical recovery plan.</p>
-        </div>
-        <div class="tilt-card">
-          <div class="feature-icon"><i class="fa-solid fa-user-group"></i></div>
-          <span style="font-size: 0.8rem; color: var(--primary-cyan); font-weight: 700;">Social Media</span>
-          <h3 style="margin: 0.5rem 0;">Build a Safer Social Media Footprint</h3>
-          <p>Use privacy controls and thoughtful sharing habits to protect your reputation.</p>
-        </div>
-        <div class="tilt-card">
-          <div class="feature-icon"><i class="fa-solid fa-wifi"></i></div>
-          <span style="font-size: 0.8rem; color: var(--primary-cyan); font-weight: 700;">Safe Browsing</span>
-          <h3 style="margin: 0.5rem 0;">How to Stay Safe on Public Wi-Fi</h3>
-          <p>Understand encrypted connections, network risks, and safer browsing habits.</p>
+          <div class="feature-icon"><i class="fa-solid {{ chapter.icon }}"></i></div>
+          <span style="font-size: 0.8rem; color: var(--primary-cyan); font-weight: 700;">CHAPTER {{ chapter.number }} • LEVEL {{ chapter.number }}</span>
+          <h3 style="margin: 0.5rem 0;">{{ chapter.title }}</h3>
+          <p>{{ chapter.description }}</p>
+          <a href="{% url 'journey:index' %}?level={{ chapter.number }}" class="btn btn-secondary" style="margin-top: 1.5rem;">Open Level {{ chapter.number }}</a>
         </div>
       {% endfor %}
     </div>

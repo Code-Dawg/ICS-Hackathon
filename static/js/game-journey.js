@@ -141,7 +141,25 @@ class GameJourneyMap {
       this.initEvents();
       this.initBlinking();
       setTimeout(() => this.drawConnectionPath(), 300);
+      this.openRequestedLevel();
     }
+  }
+
+  // A chapter link can request its matching learning level, for example
+  // /journey/?level=1 opens the Chapter 1 question automatically.
+  openRequestedLevel() {
+    const level = Number(new URLSearchParams(window.location.search).get('level'));
+    if (!Number.isInteger(level) || level < 1 || level > 20) return;
+
+    const wrapper = document.querySelector(`.level-node-wrapper[data-level="${level}"]`);
+    if (!wrapper) return;
+
+    if (wrapper.getAttribute('data-status') === 'locked') {
+      this.triggerNodeLockShake(wrapper);
+      return;
+    }
+
+    this.fetchLevelData(level);
   }
 
   initEvents() {

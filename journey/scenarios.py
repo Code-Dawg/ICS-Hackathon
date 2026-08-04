@@ -7,6 +7,22 @@ Groups detailed scenarios with choices, effects, correct answers, and feedback.
 """
 
 SCENARIOS = {
+    # Chapter 1 / Level 1 — Create Account
+    1: [
+        {
+            "id": "L1_Q1",
+            "story": "You are creating your Footprint Quest account. Which password choice best protects your new account?",
+            "choices": [
+                "Use your name and birth year so it is easy to remember.",
+                "Reuse the password from your social media account.",
+                "Create a unique, long passphrase and enable two-factor authentication when available."
+            ],
+            "correct_idx": 2,
+            "effects": {"xp": 10, "coins": 5, "privacy": 5, "security": 15, "trust": 5},
+            "feedback": "A unique passphrase prevents one leaked password from unlocking several accounts. Two-factor authentication adds another layer of protection."
+        }
+    ],
+
     # Level 2 — First Steps Online
     2: [
         {

@@ -18,7 +18,7 @@ from .scenarios import SCENARIOS
 
 # Definitions of all 20 levels in the Footprint Quest adventure
 LEVELS_METADATA = [
-    {"level": 1, "title": "Create Account", "icon": "fa-user-plus", "type": "auth", "desc": "Establish your cryptographic profile and begin your quest."},
+    {"level": 1, "title": "Create Account", "icon": "fa-user-plus", "type": "scenario", "desc": "Learn the essential account-safety choices before beginning your quest."},
     {"level": 2, "title": "First Steps Online", "icon": "fa-shoe-prints", "type": "scenario", "desc": "Navigate notifications, downloads, terms, and library terminals."},
     {"level": 3, "title": "Your First Social Media Account", "icon": "fa-share-nodes", "type": "scenario", "desc": "Manage profile visibility, request filters, and viral surveys."},
     {"level": 4, "title": "Active vs Passive Digital Footprints", "icon": "fa-fingerprint", "type": "scenario", "desc": "Decouple query tracking, location telemetry, and browser fingerprints."},
