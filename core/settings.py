@@ -27,23 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
-    'home',
-    'login',
-=======
-
-    # Custom Modular Project Apps
-    'accounts.apps.AccountsConfig',
     'home.apps.HomeConfig',
-    'digitalfootprints.apps.DigitalfootprintsConfig',
-    'journey.apps.JourneyConfig',
-    'quiz.apps.QuizConfig',
-    'leaderboard.apps.LeaderboardConfig',
-    'dashboard.apps.DashboardConfig',
-    'statistics.apps.StatisticsConfig',
-    'blog.apps.BlogConfig',
-    'contact.apps.ContactConfig',
->>>>>>> f7df1f8d166cd8acd3a2dbc44289b82f08c394f9
+    'login.apps.LoginConfig',
 ]
 
 MIDDLEWARE = [
@@ -108,8 +93,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Auth redirects
-LOGIN_URL = 'accounts:login'
-LOGIN_REDIRECT_URL = 'dashboard:index'
-LOGOUT_REDIRECT_URL = 'home:index'
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
